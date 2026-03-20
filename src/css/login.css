@@ -1,0 +1,150 @@
+/* login.css — página de login e modal de erro */
+
+.pagina-login {
+    min-height: 100vh;
+    background: linear-gradient(140deg, var(--verde) 0%, var(--azul) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+}
+
+.cartao-login {
+    background: var(--branco);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--sombra-l);
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.lado-imagem {
+    background: linear-gradient(180deg, var(--verde) 0%, var(--verde-claro) 100%);
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--branco);
+}
+.lado-imagem img { width: 110px; margin-bottom: 24px; filter: brightness(1.1); }
+.lado-imagem h2  { font-size: 1.5rem; font-weight: 800; margin-bottom: 10px; }
+.lado-imagem p   { opacity: .75; font-size: .9rem; line-height: 1.6; }
+
+.lado-formulario       { padding: 50px 44px; }
+.lado-formulario h3    { font-size: 1.4rem; color: var(--verde); margin-bottom: 6px; }
+.lado-formulario small { color: var(--texto-suave); display: block; margin-bottom: 28px; }
+
+.grupo-input-icone {
+    position: relative;
+    margin-bottom: 18px;
+}
+.grupo-input-icone i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--texto-suave);
+    font-size: 1rem;
+}
+.grupo-input-icone input {
+    width: 100%;
+    padding: 12px 14px 12px 40px;
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: var(--raio-s);
+    font-size: .95rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+    background: #fafbfa;
+}
+.grupo-input-icone input:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(0,77,64,.1);
+    outline: none;
+    background: var(--branco);
+}
+
+.botao-autenticar {
+    width: 100%;
+    padding: 13px;
+    background: var(--verde);
+    color: var(--branco);
+    border: none;
+    border-radius: var(--raio-s);
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background var(--transicao), transform var(--transicao);
+    margin-bottom: 20px;
+}
+.botao-autenticar:hover { background: var(--verde-escuro); transform: translateY(-2px); }
+
+.links-rodape-login { display: flex; justify-content: space-between; }
+.links-rodape-login a {
+    font-size: .83rem;
+    color: var(--texto-suave);
+    text-decoration: none;
+    transition: color var(--transicao);
+}
+.links-rodape-login a:hover { color: var(--verde); }
+
+/* Modal de Erro */
+.sobreposicao-erro {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+.sobreposicao-erro.aberto { display: flex; }
+
+.caixa-erro {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 32px;
+    width: 90%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: var(--sombra-l);
+    border-top: 4px solid #c62828;
+    animation: entrarModal .3s ease;
+}
+.caixa-erro i  { font-size: 2.5rem; color: #c62828; margin-bottom: 14px; display: block; }
+.caixa-erro h4 { color: var(--texto); margin-bottom: 8px; }
+.caixa-erro p  { color: var(--texto-suave); font-size: .9rem; margin-bottom: 20px; }
+
+.botao-fechar-erro {
+    background: var(--verde);
+    color: var(--branco);
+    border: none;
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transicao);
+}
+.botao-fechar-erro:hover { background: var(--verde-escuro); }
+
+/* Responsividade */
+@media (max-width: 991px) {
+    .cartao-login { grid-template-columns: 1fr; }
+    .lado-imagem  { padding: 36px 30px; }
+}
+
+@media (max-width: 768px) {
+    .lado-formulario { padding: 32px 24px; }
+}
+
+@media (max-width: 480px) {
+    .cartao-login    { border-radius: 14px; }
+    .lado-imagem     { display: none; }
+    .lado-formulario { padding: 36px 24px; }
+    .grupo-input-icone input { font-size: 16px; }
+}

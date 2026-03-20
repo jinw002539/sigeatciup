@@ -1,0 +1,132 @@
+/* funcionario.css — formulário de cadastro, modal de revisão, notificação */
+
+/* Formulário */
+.cartao-formulario {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 36px;
+    box-shadow: var(--sombra-s);
+    border: 1px solid var(--cinza-borda);
+    max-width: 620px;
+    width: 100%;
+}
+.cartao-formulario h1 { color: var(--verde); font-size: 1.6rem; text-align: center; margin-bottom: 28px; }
+
+.grupo-campo { margin-bottom: 18px; }
+.grupo-campo label {
+    display: block;
+    font-weight: 500;
+    font-size: .88rem;
+    color: var(--texto-suave);
+    margin-bottom: 7px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.campo-entrada {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: var(--raio-s);
+    font-size: .95rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+    background: #fafbfa;
+}
+.campo-entrada:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(0,77,64,.1);
+    outline: none;
+    background: var(--branco);
+}
+
+.botao-primario {
+    width: 100%;
+    padding: 13px;
+    background: var(--verde);
+    color: var(--branco);
+    border: none;
+    border-radius: var(--raio-s);
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: .5px;
+    transition: background var(--transicao), transform var(--transicao);
+    margin-top: 8px;
+}
+.botao-primario:hover { background: var(--verde-escuro); transform: translateY(-2px); }
+
+/* Notificação */
+#notificacao {
+    position: fixed;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 320px;
+    padding: 14px 24px;
+    color: var(--branco);
+    text-align: center;
+    font-weight: 500;
+    font-size: .95rem;
+    border-radius: 50px;
+    z-index: 99999;
+    box-shadow: var(--sombra-m);
+    transition: top .5s cubic-bezier(.4,0,.2,1);
+}
+#notificacao.visivel { top: 20px; }
+
+/* Modal de Revisão */
+.fundo-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(4px);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.caixa-modal {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 32px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: var(--sombra-l);
+    animation: entrarModal .3s ease;
+}
+.caixa-modal h3 { color: var(--verde); font-size: 1.2rem; margin-bottom: 16px; }
+.caixa-modal hr { border-color: var(--cinza-borda); margin-bottom: 16px; }
+.caixa-modal .resumo {
+    background: var(--cinza-fundo);
+    border-left: 4px solid var(--verde);
+    border-radius: var(--raio-s);
+    padding: 14px;
+    font-size: .9rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+.caixa-modal .nota { font-size: .78rem; color: var(--texto-suave); margin-top: 8px; }
+
+.acoes-modal { display: flex; gap: 10px; }
+.acoes-modal button {
+    flex: 1;
+    padding: 11px;
+    border: none;
+    border-radius: var(--raio-s);
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    transition: opacity var(--transicao);
+}
+.acoes-modal button:hover      { opacity: .85; }
+.botao-confirmar-modal { background: var(--verde); color: var(--branco); }
+.botao-cancelar-modal  { background: #c62828; color: var(--branco); }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cartao-formulario { padding: 24px; }
+    .campo-entrada     { font-size: 16px; }
+}

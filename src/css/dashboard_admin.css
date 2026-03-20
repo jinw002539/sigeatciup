@@ -1,0 +1,100 @@
+/* dashboard_admin.css — menu lateral, área principal, cards de estatísticas */
+
+.menu-lateral {
+    width: 260px;
+    background: var(--verde);
+    color: var(--branco);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    z-index: 100;
+    box-shadow: 4px 0 20px rgba(0,0,0,.15);
+}
+
+.menu-lateral .logotipo {
+    padding: 28px 20px 24px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,.12);
+}
+.menu-lateral .logotipo img   { width: 52px; margin-bottom: 10px; }
+.menu-lateral .logotipo h2    { font-size: 1.1rem; font-weight: 800; letter-spacing: 1px; }
+.menu-lateral .logotipo small { opacity: .6; font-size: .78rem; }
+
+.navegacao { flex: 1; padding: 16px 0; }
+
+.link-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 24px;
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: background var(--transicao), color var(--transicao), border-color var(--transicao);
+}
+.link-menu:hover,
+.link-menu.ativo {
+    background: rgba(255,255,255,.1);
+    color: var(--branco);
+    border-left-color: #80cbc4;
+}
+.link-menu.sair { color: #ff8a80; border-top: 1px solid rgba(255,255,255,.1); margin-top: auto; }
+.link-menu.sair:hover { background: #c62828; color: var(--branco); border-left-color: transparent; }
+
+/* Área Principal */
+.area-principal {
+    margin-left: 260px;
+    min-height: 100vh;
+    padding: 36px;
+    background: var(--cinza-fundo);
+}
+
+.cabecalho-pagina {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    box-shadow: var(--sombra-s);
+    border: 1px solid var(--cinza-borda);
+}
+.cabecalho-pagina h1 { color: var(--verde); font-size: 1.5rem; margin-bottom: 4px; }
+.cabecalho-pagina p  { color: var(--texto-suave); font-size: .9rem; margin: 0; }
+
+/* Cards de Estatísticas */
+.grelha-estatisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.cartao-stat {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 22px 18px;
+    text-align: center;
+    box-shadow: var(--sombra-s);
+    border: 1px solid var(--cinza-borda);
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+.cartao-stat:hover { transform: translateY(-4px); box-shadow: var(--sombra-m); }
+.cartao-stat h3     { font-size: .78rem; color: var(--texto-suave); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.cartao-stat .numero { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: var(--verde); display: block; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .menu-lateral {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .navegacao  { display: flex; overflow-x: auto; flex: 1; }
+    .link-menu  { padding: 10px 16px; border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; }
+    .link-menu:hover, .link-menu.ativo { border-left: none; border-bottom-color: #80cbc4; }
+    .area-principal { margin-left: 0; padding: 20px; }
+}
