@@ -1,37 +1,36 @@
-# SIGATCIUP - Sistema de Gestão de Agendamento e Tarefas
+# Arquitetura do Sistema - SIGATCIUP
 
 ## Requisitos Principais do MVP
 
 | ID | Requisito Funcional | Mitigação |
 | :--- | :--- | :--- |
-| RF01 | Registo de Funcionários | Permite a criação da base de dados técnica e geração automática de códigos de acesso. |
-| RF02 | Plano de Atividades | Interface para o Diretor registar atividades, objetivos e os resultados pretendidos. |
-| RF03 | Filtro por Período | Capacidade de segmentar a visualização das tarefas por Trimestres (T1, T2) ou Semestres. |
-| RF04 | Atribuição Dinâmica | Permite vincular um técnico específico a uma atividade pendente no sistema. |
-| RF05 | Controlo de Estados | Monitorização em tempo real se a tarefa está "Pendente", "Em Curso" ou "Concluída". |
-
-## Escolha de Tecnologia
-
-* **Front-End:** HTML5, SCSS (Sassy CSS) e JavaScript (ES6+);
-* **Back-End:** PHP estruturado para lógica de servidor e gestão de sessões;
-* **Base de Dados:** PostgreSQL (PSQL) para armazenamento persistente;
-* **Comunicação:** Fetch API para pedidos assíncronos (AJAX).
+| RF01 | Níveis de Acesso | Essencial para isolar as funções de Direção Geral, Departamental, Secretaria e Técnicos. |
+| RF02 | Gestão de Memorandos | Garante o registo e rastreabilidade documental de toda a correspondência do CIUP. |
+| RF03 | Planeamento Trimestral | Permite a organização temporal das metas e a medição de desempenho por períodos. |
+| RF04 | Atribuição de Responsáveis | Garante a integridade da agenda, impedindo que tarefas fiquem órfãs de um técnico. |
+| RF05 | Controlo de Estados | Permite a atualização em tempo real do progresso das atividades para consulta da direção. |
 
 ## Arquitetura do Sistema
 
-O projeto adota uma combinação de duas abordagens estruturais para garantir a escalabilidade:
+O sistema foi desenhado combinando duas abordagens fundamentais de Engenharia de Software:
 
-1. **Arquitetura MVC (Model-View-Controller):** Utilizada para separar a interface (View) da lógica de negócio (Controller) e do acesso aos dados (Model). Esta separação facilita a manutenção e permite correções na interface sem comprometer as regras de processamento.
-2. **Arquitetura em Camadas:** Implementada para isolar o Front-End do Back-End. Esta divisão assegura que as regras de negócio e os dados sensíveis fiquem protegidos no servidor, longe do acesso direto pelo navegador, aumentando a segurança do sistema.
+1. **Arquitetura MVC (Model-View-Controller):** Utilizada para separar a interface da lógica de negócio e do acesso aos dados. O **Model** gere a persistência no Postgres, a **View** apresenta os painéis (Dashboards) e o **Controller** processa os pedidos do utilizador.
+2. **Arquitetura em Camadas:** Separa o Front-End (apresentação) do Back-End (regras de negócio). Esta divisão garante que as validações críticas e os dados sensíveis dos funcionários e memorandos fiquem protegidos no servidor, inacessíveis por manipulação direta no navegador.
+
+## Escolha de Tecnologia
+
+* **Front-End:** HTML5, SCSS, CSS e JavaScript (ES6+);
+* **Back-End:** PHP e APACHE2;
+* **Base de Dados:** PostgreSQL (PSQL).
 
 ## Justificação Técnica
 
-A escolha destas arquiteturas deve-se à necessidade de organização e segurança. O uso do **MVC** permite que o sistema seja leve e funcional, ideal para os computadores da instituição, enquanto a **Arquitetura em Camadas** mitiga riscos de acesso indevido por parte de utilizadores sem privilégios de administrador.
+A escolha destas arquiteturas deve-se à necessidade de manter um sistema leve e funcional para o parque informático da instituição, sem abdicar da segurança. O **MVC** facilita a manutenção do código, permitindo corrigir erros na interface sem afetar a integridade dos dados.
 
-O uso do **PHP** no lado do servidor (Server-side) é fundamental para o fecho de requisitos de segurança, permitindo filtrar os dados para que cada funcionário visualize apenas as suas tarefas. Graças ao PHP, conseguimos isolar informações sensíveis em modais, garantindo que o carregamento seja seguro.
+Sobre a segurança e fecho de requisitos, o uso do **PHP** no lado do servidor é crucial. Ele funciona como um filtro que assegura que um Funcionário veja apenas a sua agenda, enquanto a Secretaria gere apenas os memorandos. O uso de **Sessions PHP** garante que utilizadores sem privilégios não acedam a funções da Direção Geral.
 
-Para a gestão de formulários e notificações, a combinação de **HTML** e **PHP** oferece uma base robusta, enquanto o **JavaScript** assegura que as atualizações de estado das tarefas (como o cancelamento ou reagendamento) sejam refletidas instantaneamente na interface sem necessidade de recarregar a página.
+Para a interatividade, a combinação de **JavaScript** com a **Fetch API** permite que estados de tarefas sejam atualizados instantaneamente. Isto resolve o requisito de agilidade, pois o Diretor recebe feedback visual imediato sobre o progresso dos departamentos sem necessidade de recarregar a página.
 
 ## Ambiente de Desenvolvimento
 
-O sistema foi desenvolvido e testado em ambiente Linux (Fedora/Kali), utilizando servidores Apache. A ligação à base de dados é efetuada via **PDO (PHP Data Objects)** para garantir proteção contra SQL Injection e assegurar a integridade dos dados do CIUP.
+O sistema é desenvolvido em ambiente Linux (Fedora/Ubuntu), utilizando o servidor Apache. A comunicação com o PostgreSQL é feita via **PDO (PHP Data Objects)**, utilizando *Prepared Statements* para mitigar riscos de SQL Injection e garantir a robustez necessária para o ambiente universitário.
