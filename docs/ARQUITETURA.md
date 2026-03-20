@@ -2,7 +2,7 @@
 
 ## Requisitos Principais do MVP
 
-| ID | Requisito Funcional | Justificação |
+| ID | Requisito Funcional | Mitigação |
 | :--- | :--- | :--- |
 | RF01 | Registo de Funcionários | Permite a criação da base de dados técnica e geração automática de códigos de acesso. |
 | RF02 | Plano de Atividades | Interface para o Diretor registar atividades, objetivos e os resultados pretendidos. |
