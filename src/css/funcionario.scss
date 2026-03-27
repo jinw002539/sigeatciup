@@ -1,148 +1,202 @@
-// funcionario.scss — formulário de cadastro, modal de revisão, notificação
-// Requer: base.scss
+// funcionario.scss — Requer: base.scss
 
-// ── Formulário ─────────────────────────────────────────────
-.cartao-formulario {
-    background: $branco;
-    border-radius: $raio;
-    padding: 36px;
-    box-shadow: $sombra-s;
-    border: 1px solid $cinza-borda;
-    max-width: 620px;
-    width: 100%;
+// ── Botões de aba ──────────────────────────────────────────
+.acoes-topo { display: flex; gap: 10px; flex-wrap: wrap; }
 
-    h1 { color: $verde; font-size: 1.6rem; text-align: center; margin-bottom: 28px; }
+.botao-aba {
+    background: $cinza-fundo; color: $texto-suave;
+    border: 1.5px solid $cinza-borda; border-radius: $raio-s;
+    padding: 9px 18px; font-family: 'Syne', sans-serif;
+    font-weight: 600; font-size: .88rem; cursor: pointer;
+    display: flex; align-items: center;
+    transition: background $transicao, color $transicao, border-color $transicao;
+
+    &:hover { background: rgba(0,77,64,.08); color: $verde; border-color: $verde; }
+    &.ativa  { background: $verde; color: $branco; border-color: $verde; }
+}
+
+// ── Cartão de conteúdo ────────────────────────────────────
+.cartao-conteudo {
+    background: $branco; border-radius: $raio;
+    padding: 32px; box-shadow: $sombra-s;
+    border: 1px solid $cinza-borda; margin-top: 8px;
+}
+
+// ── Grade de formulário ───────────────────────────────────
+.grade-formulario {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
 }
 
 .grupo-campo {
-    margin-bottom: 18px;
+    display: flex; flex-direction: column;
 
     label {
-        display: block;
-        font-weight: 500;
-        font-size: .88rem;
-        color: $texto-suave;
-        margin-bottom: 7px;
-        text-transform: uppercase;
-        letter-spacing: .5px;
+        font-size: .78rem; font-weight: 600; color: $texto-suave;
+        text-transform: uppercase; letter-spacing: .5px; margin-bottom: 7px;
     }
 }
 
 .campo-entrada {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1.5px solid $cinza-borda;
-    border-radius: $raio-s;
-    font-size: .95rem;
-    font-family: 'DM Sans', sans-serif;
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid $cinza-borda; border-radius: $raio-s;
+    font-size: .95rem; font-family: 'DM Sans', sans-serif;
+    background: #fafbfa; color: $texto;
     transition: border-color $transicao, box-shadow $transicao;
-    background: #fafbfa;
 
-    &:focus {
-        border-color: $verde;
-        box-shadow: 0 0 0 3px rgba(0,77,64,.1);
-        outline: none;
-        background: $branco;
-    }
+    &:focus { border-color: $verde; box-shadow: 0 0 0 3px rgba(0,77,64,.1); outline: none; background: $branco; }
+    &[readonly] { background: #f0f4f3; color: $texto-suave; cursor: not-allowed; }
 }
 
-.botao-primario {
-    width: 100%;
-    padding: 13px;
-    background: $verde;
-    color: $branco;
-    border: none;
-    border-radius: $raio-s;
-    font-family: 'Syne', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: .5px;
+.rodape-form {
+    margin-top: 24px; display: flex; justify-content: flex-end;
+    border-top: 1.5px solid $cinza-borda; padding-top: 20px;
+}
+
+.botao-prever {
+    background: $verde; color: $branco; border: none;
+    border-radius: $raio-s; padding: 12px 30px;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem;
+    cursor: pointer; display: flex; align-items: center;
+    box-shadow: 0 4px 14px rgba(0,77,64,.25);
     transition: background $transicao, transform $transicao;
-    margin-top: 8px;
 
     &:hover { background: $verde-escuro; transform: translateY(-2px); }
 }
 
-// ── Notificação ────────────────────────────────────────────
-#notificacao {
-    position: fixed;
-    top: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 320px;
-    padding: 14px 24px;
-    color: $branco;
-    text-align: center;
-    font-weight: 500;
-    font-size: .95rem;
-    border-radius: 50px;
-    z-index: 99999;
-    box-shadow: $sombra-m;
-    transition: top .5s cubic-bezier(.4,0,.2,1);
-
-    &.visivel { top: 20px; }
+.tabela-cabecalho th {
+    background: $verde; color: $branco;
+    font-family: 'Syne', sans-serif; font-size: .78rem;
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 13px 16px; border: none;
 }
 
-// ── Modal de Revisão ───────────────────────────────────────
-.fundo-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.6);
-    backdrop-filter: blur(4px);
-    z-index: 9000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.badge-nivel {
+    background: #e0f0ec; color: $verde;
+    font-size: .72rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: .5px;
 }
 
-.caixa-modal {
-    background: $branco;
-    border-radius: $raio;
-    padding: 32px;
-    width: 90%;
-    max-width: 420px;
-    box-shadow: $sombra-l;
-    animation: entrarModal .3s ease;
+// ── Modais ────────────────────────────────────────────────
+.sobreposicao-modal {
+    position: fixed; inset: 0;
+    background: rgba(10,20,18,.65); backdrop-filter: blur(5px);
+    z-index: 9999; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+}
 
-    h3   { color: $verde; font-size: 1.2rem; margin-bottom: 16px; }
-    hr   { border-color: $cinza-borda; margin-bottom: 16px; }
-    .nota { font-size: .78rem; color: $texto-suave; margin-top: 8px; }
+.caixa-modal-func {
+    background: $branco; border-radius: 18px; padding: 32px;
+    width: 100%; max-width: 480px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.22);
+    animation: entrarModal .3s cubic-bezier(.34,1.56,.64,1);
+    max-height: 90vh; overflow-y: auto;
+}
 
-    .resumo {
-        background: $cinza-fundo;
-        border-left: 4px solid $verde;
-        border-radius: $raio-s;
-        padding: 14px;
-        font-size: .9rem;
-        line-height: 1.8;
-        margin-bottom: 20px;
+.cabecalho-modal-func {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 14px;
+    border-bottom: 1.5px solid $cinza-borda;
+
+    h3 { color: $verde; font-size: 1.1rem; margin: 0; }
+}
+
+.fechar-modal-btn {
+    background: $cinza-fundo; border: none; border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: $texto-suave; font-size: .85rem; flex-shrink: 0;
+    transition: background $transicao, color $transicao;
+
+    &:hover { background: #fde8e8; color: #c62828; }
+}
+
+.resumo-dados-func {
+    background: $cinza-fundo; border-left: 4px solid $verde;
+    border-radius: $raio-s; padding: 14px 16px; margin-bottom: 4px;
+}
+
+.linha-resumo-func {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 0; border-bottom: 1px solid $cinza-borda; font-size: .88rem;
+
+    &:last-of-type { border-bottom: none; }
+    span   { color: $texto-suave; font-size: .82rem; }
+    strong { color: $texto; }
+}
+
+.nota-resumo-func {
+    margin-top: 10px; font-size: .75rem; color: $texto-suave;
+    background: #fff8e1; padding: 7px 10px; border-radius: $raio-s; margin-bottom: 0;
+}
+
+.acoes-modal-func {
+    display: flex; gap: 10px;
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1.5px solid $cinza-borda;
+}
+
+.btn-confirmar-func {
+    flex: 1; padding: 11px; background: $verde; color: $branco;
+    border: none; border-radius: $raio-s;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: .93rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background $transicao, transform $transicao;
+
+    &:hover { background: $verde-escuro; transform: translateY(-1px); }
+}
+
+.btn-cancelar-func {
+    padding: 11px 20px; background: $cinza-fundo; color: $texto-suave;
+    border: 1.5px solid $cinza-borda; border-radius: $raio-s;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: .93rem;
+    cursor: pointer; display: flex; align-items: center;
+    transition: background $transicao, color $transicao;
+
+    &:hover { background: #fde8e8; color: #c62828; border-color: #f5c6c6; }
+}
+
+.caixa-sucesso-func { text-align: center; max-width: 420px !important; padding: 36px 32px !important; }
+
+.icone-sucesso-func {
+    font-size: 3.5rem; color: #2e7d32; margin-bottom: 14px;
+    animation: surgirIcone .5s cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes surgirIcone {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.titulo-sucesso-func    { color: $verde; font-size: 1.4rem; margin-bottom: 6px; }
+.subtitulo-sucesso-func { color: $texto-suave; font-size: .9rem; margin-bottom: 20px; }
+
+.cartao-credenciais-func {
+    background: $cinza-fundo; border-radius: $raio-s;
+    padding: 16px 18px; margin-bottom: 12px;
+    text-align: left; border: 1.5px solid $cinza-borda;
+}
+
+.linha-credencial-func {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid $cinza-borda; font-size: .88rem;
+
+    &:last-child { border-bottom: none; }
+    span   { color: $texto-suave; font-size: .82rem; }
+    strong {
+        font-family: 'Courier New', monospace; font-size: .95rem;
+        color: $verde; background: rgba(0,77,64,.08);
+        padding: 2px 10px; border-radius: 6px;
     }
 }
 
-.acoes-modal {
-    display: flex;
-    gap: 10px;
+.nota-sucesso-func { font-size: .75rem; color: $texto-suave; margin-bottom: 0; }
 
-    button {
-        flex: 1;
-        padding: 11px;
-        border: none;
-        border-radius: $raio-s;
-        font-weight: 700;
-        cursor: pointer;
-        font-family: 'Syne', sans-serif;
-        transition: opacity $transicao;
-
-        &:hover { opacity: .85; }
-    }
-}
-
-.botao-confirmar-modal { background: $verde;   color: $branco; }
-.botao-cancelar-modal  { background: #c62828;  color: $branco; }
-
-// ── Responsividade ─────────────────────────────────────────
 @media (max-width: 768px) {
-    .cartao-formulario { padding: 24px; }
-    .campo-entrada     { font-size: 16px; }
+    .grade-formulario { grid-template-columns: 1fr; }
+    .cartao-conteudo  { padding: 20px; }
+    .rodape-form      { justify-content: stretch; }
+    .botao-prever     { width: 100%; justify-content: center; }
 }

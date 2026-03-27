@@ -1,11 +1,17 @@
 <?php
 session_start();
 header('Cache-Control: no-cache, no-store, must-revalidate');
-if (!isset($_SESSION['adminLog']) || $_SESSION['adminLog'] !== true) {
+
+$ehAdmin   = isset($_SESSION['adminLog']) && $_SESSION['adminLog'] === true;
+$ehDirDept = isset($_SESSION['dirLog'])   && ($_SESSION['dirNivel'] ?? '') === 'departamento';
+
+if (!$ehAdmin && !$ehDirDept) {
     header('Location: ../login.php');
     exit();
 }
-$nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
+
+$nomeUser = htmlspecialchars($ehAdmin ? $_SESSION['adminNome'] : $_SESSION['dirNome']);
+$deptUser = htmlspecialchars($_SESSION['dirDept'] ?? '');
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -26,14 +32,20 @@ $nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
         <div class="logotipo">
             <img src="../imagens/imagem.png" alt="Logo">
             <h2>SIGATCIUP</h2>
-            <small>Sistema de Gestão</small>
+            <small><?php echo $ehAdmin ? 'Direcção Geral' : 'Dep. ' . $deptUser; ?></small>
         </div>
         <nav class="navegacao">
+            <?php if ($ehAdmin): ?>
             <a href="../dashboards/dashboard_admin.php" class="link-menu"><i class="bi bi-house-door"></i> Home</a>
             <a href="../cadastro/funcionario.php" class="link-menu"><i class="bi bi-people"></i> Funcionários</a>
             <a href="#" class="link-menu ativo"><i class="bi bi-check2-square"></i> Tarefas</a>
             <a href="#" class="link-menu"><i class="bi bi-person-badge"></i> Diretores</a>
             <a href="#" class="link-menu"><i class="bi bi-file-earmark-pdf"></i> Relatórios</a>
+            <?php else: ?>
+            <a href="../dashboards/dashboard_director_dept.php" class="link-menu"><i class="bi bi-house-door"></i> Home</a>
+            <a href="#" class="link-menu ativo"><i class="bi bi-check2-square"></i> Tarefas</a>
+            <a href="../cadastro/funcionario.php" class="link-menu"><i class="bi bi-person-plus"></i> Cadastrar</a>
+            <?php endif; ?>
             <a href="../logout.php" class="link-menu sair"><i class="bi bi-box-arrow-right"></i> Sair</a>
         </nav>
     </aside>
@@ -41,8 +53,10 @@ $nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
     <main class="area-principal">
 
         <div class="cabecalho-pagina revelar visivel">
-            <h1><i class="bi bi-check2-square me-2"></i>Plano de Actividades</h1>
-            <p>Gestão de tarefas do Centro de Informática da UP</p>
+            <div>
+                <h1><i class="bi bi-check2-square me-2"></i>Plano de Actividades</h1>
+                <p><?php echo $ehAdmin ? 'Visão geral — todas as tarefas' : 'Departamento de ' . $deptUser; ?></p>
+            </div>
         </div>
 
         <div class="barra-acoes revelar atraso-1">
@@ -65,8 +79,8 @@ $nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
                 <thead>
                     <tr>
                         <th>Actividade</th>
-                        <th>Objectivos</th>
-                        <th>Resultado Esperado</th>
+                        <th>Departamento</th>
+                        <th>Funcionário</th>
                         <th>Prazo</th>
                         <th>Estado</th>
                         <th class="text-center">Ações</th>
@@ -84,25 +98,19 @@ $nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
 
     </main>
 
-    <!-- Modal fora do flex para centrar correctamente -->
+    <!-- Modal Criar / Editar -->
     <div id="fundo-modal" class="sobreposicao-tarefa">
         <div class="caixa-tarefa">
-
             <div class="cabecalho-modal">
                 <h3 id="modal-titulo"><i class="bi bi-plus-circle me-2"></i>Nova Tarefa</h3>
-                <button class="fechar-modal-btn" onclick="fecharModal()">
-                    <i class="bi bi-x-lg"></i>
-                </button>
+                <button class="fechar-modal-btn" onclick="fecharModal()"><i class="bi bi-x-lg"></i></button>
             </div>
-
             <form id="formTarefa" onsubmit="return false;">
                 <input type="hidden" id="tarefa-id">
-
                 <div class="grupo-campo">
                     <label>Actividade</label>
                     <input type="text" id="tarefa-actividade" class="campo-entrada" placeholder="Descreva a actividade" required>
                 </div>
-
                 <div class="row g-3">
                     <div class="col-md-6 grupo-campo">
                         <label>Objectivos</label>
@@ -113,7 +121,6 @@ $nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
                         <textarea id="tarefa-resultado" class="campo-entrada" rows="3" placeholder="O que se espera alcançar?"></textarea>
                     </div>
                 </div>
-
                 <div class="row g-3">
                     <div class="col-md-6 grupo-campo">
                         <label>Prazo de Execução</label>
@@ -129,7 +136,18 @@ $nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
                         </select>
                     </div>
                 </div>
-
+                <?php if ($ehAdmin): ?>
+                <div class="grupo-campo">
+                    <label>Departamento</label>
+                    <select id="tarefa-dept" class="campo-entrada">
+                        <option value="">— Seleccionar —</option>
+                        <option value="Redes">Redes</option>
+                        <option value="Sistemas">Sistemas</option>
+                        <option value="Secretaria">Secretaria</option>
+                        <option value="Administrativo">Administrativo</option>
+                    </select>
+                </div>
+                <?php endif; ?>
                 <div class="acoes-modal-tarefa">
                     <button class="botao-guardar" onclick="guardarTarefa()">
                         <i class="bi bi-check-lg me-2"></i>Guardar
@@ -139,20 +157,45 @@ $nomeAdmin = htmlspecialchars($_SESSION['adminNome']);
                     </button>
                 </div>
             </form>
-
         </div>
     </div>
 
+    <!-- Modal Atribuir Funcionário -->
+    <div id="fundo-atribuir" class="sobreposicao-tarefa">
+        <div class="caixa-tarefa" style="max-width:420px;">
+            <div class="cabecalho-modal">
+                <h3><i class="bi bi-person-check me-2"></i>Atribuir Funcionário</h3>
+                <button class="fechar-modal-btn" onclick="fecharAtribuir()"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <input type="hidden" id="atribuir-tarefa-id">
+            <div class="grupo-campo mt-3">
+                <label>Funcionário do Departamento</label>
+                <select id="select-funcionario" class="campo-entrada">
+                    <option value="">A carregar...</option>
+                </select>
+            </div>
+            <div class="acoes-modal-tarefa">
+                <button class="botao-guardar" onclick="confirmarAtribuicao()">
+                    <i class="bi bi-check-lg me-2"></i>Atribuir
+                </button>
+                <button type="button" class="botao-cancelar" onclick="fecharAtribuir()">
+                    <i class="bi bi-x-lg me-2"></i>Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const EHAMIN = <?php echo $ehAdmin ? 'true' : 'false'; ?>;
+        const DEPT   = '<?php echo addslashes($deptUser); ?>';
+    </script>
     <script src="../js/tarefas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const observador = new IntersectionObserver(entradas => {
-            entradas.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('visivel'); observador.unobserve(e.target); }
-            });
+            entradas.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visivel'); observador.unobserve(e.target); } });
         }, { threshold: 0.1 });
         document.querySelectorAll('.revelar').forEach(el => observador.observe(el));
-
         carregarTarefas();
     </script>
 </body>

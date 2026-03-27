@@ -67,3 +67,16 @@
 @media (max-width: 768px) {
     .cartao-tarefa { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
+
+// ── Novo: Estado vazio, prazos coloridos, bloqueada ───────
+.estado-vazio {
+    text-align: center; padding: 60px 20px; color: $texto-suave;
+    i { font-size: 3rem; display: block; margin-bottom: 14px; opacity: .4; }
+}
+
+.prazo-urgente  { color: #b45309; font-weight: 700; }
+.prazo-expirado { color: #c62828; font-weight: 700; }
+.prazo-normal   { color: $texto-suave; }
+
+.linha-bloqueada { background: #fff5f5 !important; opacity: .8; }
+.linha-bloqueada:hover { background: #ffeaea !important; }

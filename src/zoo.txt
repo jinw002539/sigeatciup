@@ -1,7 +1,8 @@
-Duvidas:
-1. IntersectionObserver
-2. fetch
-3. header('Cache-Control: no-cache, no-store, must-revalidate');
-4. threshold: 0.12
-5. unobserve
-6. if (!isset($_SESSION['adminLog']) || $_SESSION['adminLog'] !== true) {
+ver php
+login
+cadastro
+listar
+actualizar
+sessoes
+niveis de acesso
+mandam codigo no contacto

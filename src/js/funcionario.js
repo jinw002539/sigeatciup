@@ -1,26 +1,35 @@
 function revisarDados() {
-    const nome  = document.getElementById('nome').value.trim();
-    const bi    = document.getElementById('bi').value.trim();
-    const depto = document.getElementById('departamento').value;
-    const cargo = document.getElementById('cargo').value.trim();
-    const biRegex = /^[0-9]{12}[A-Z]{1}$/;
+    const nome        = document.getElementById('nome').value.trim();
+    const bi          = document.getElementById('bi').value.trim();
+    const email       = document.getElementById('email').value.trim();
+    const deptoSelect = document.getElementById('id_departamento');
+    const nivelSelect = document.getElementById('nivel_acesso');
+    const cargoEl     = document.getElementById('cargo');
 
-    if (!biRegex.test(bi)) {
-        mostrarNotificacao('BI inválido. Formato: 12 dígitos + 1 letra maiúscula.', '#c62828');
-        return;
-    }
-    if (!nome || !cargo) {
+    if (!nome || !bi || !email || !deptoSelect || !deptoSelect.value) {
         mostrarNotificacao('Preencha todos os campos obrigatórios.', '#c62828');
         return;
     }
 
+    const biRegex = /^[0-9]{12}[A-Z]{1}$/;
+    if (!biRegex.test(bi)) {
+        mostrarNotificacao('BI inválido. Formato: 12 dígitos + 1 letra maiúscula.', '#c62828');
+        return;
+    }
+
+    const deptoNome = deptoSelect.options[deptoSelect.selectedIndex].text;
+    const nivelNome = nivelSelect.options[nivelSelect.selectedIndex].text;
+    const cargoVal  = cargoEl && cargoEl.type !== 'hidden' ? cargoEl.value.trim() : null;
+
     document.getElementById('dadosResumo').innerHTML = `
-        <div class="resumo">
-            <p><strong>Nome:</strong> ${nome}</p>
-            <p><strong>BI:</strong> ${bi}</p>
-            <p><strong>Departamento:</strong> ${depto}</p>
-            <p><strong>Cargo:</strong> ${cargo}</p>
-            <p class="nota">O código de acesso será gerado automaticamente.</p>
+        <div class="resumo-dados-func">
+            <div class="linha-resumo-func"><span>Nome</span><strong>${nome}</strong></div>
+            <div class="linha-resumo-func"><span>BI</span><strong>${bi}</strong></div>
+            <div class="linha-resumo-func"><span>E-mail</span><strong>${email}</strong></div>
+            <div class="linha-resumo-func"><span>Departamento</span><strong>${deptoNome}</strong></div>
+            ${cargoVal ? `<div class="linha-resumo-func"><span>Cargo</span><strong>${cargoVal}</strong></div>` : ''}
+            <div class="linha-resumo-func"><span>Nível</span><strong>${nivelNome}</strong></div>
+            <p class="nota-resumo-func"><i class="bi bi-envelope me-1"></i>Link de ativação será enviado para este e-mail.</p>
         </div>`;
 
     document.getElementById('fundo-modal').style.display = 'flex';
@@ -28,6 +37,16 @@ function revisarDados() {
 
 function fecharModal() {
     document.getElementById('fundo-modal').style.display = 'none';
+}
+
+function fecharSucesso() {
+    document.getElementById('fundo-sucesso').style.display = 'none';
+}
+
+function mostrarSucesso(codigo, senha) {
+    document.getElementById('sucesso-codigo').textContent = codigo;
+    document.getElementById('sucesso-senha').textContent  = senha;
+    document.getElementById('fundo-sucesso').style.display = 'flex';
 }
 
 function mostrarNotificacao(texto, cor) {
@@ -44,29 +63,24 @@ function carregarTabela() {
         .then(r => r.json())
         .then(res => {
             const corpo = document.getElementById('tabelaCorpo');
-            if (!corpo) return;
             if (!res.sucesso || !res.dados.length) {
                 corpo.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-4">Nenhum funcionário registado.</td></tr>';
                 return;
             }
             corpo.innerHTML = res.dados.map(f => `
                 <tr>
-                    <td><i class="bi bi-person-circle me-2 text-muted"></i>${f.nome}</td>
-                    <td>${f.bi}</td>
-                    <td><span class="badge-depto">${f.departamento}</span></td>
-                    <td>${f.cargo}</td>
+                    <td><i class="bi bi-person-circle me-2 text-muted"></i><strong>${f.nome}</strong></td>
+                    <td><small>${f.bi}</small></td>
+                    <td><span class="badge-depto">${f.departamento || '—'}</span></td>
+                    <td><span class="badge-nivel">${f.nivel_acesso || '—'}</span></td>
                     <td><code>${f.codigo_acesso}</code></td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-warning me-1" onclick="prepararEdicao('${f.bi}')">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="btn btn-sm btn-danger" onclick="eliminar('${f.bi}')">
+                        <button class="btn btn-sm btn-outline-danger" onclick="eliminar('${f.bi}')">
                             <i class="bi bi-trash"></i>
                         </button>
                     </td>
                 </tr>`).join('');
-        })
-        .catch(() => mostrarNotificacao('Erro ao carregar dados.', '#c62828'));
+        });
 }
 
 function eliminar(bi) {
@@ -83,15 +97,22 @@ function enviarParaBD() {
     fecharModal();
     const form     = document.getElementById('formCadastro');
     const formData = new FormData(form);
+    formData.append('acao', 'cadastrar');
 
     fetch('../acoes_php_BD/funcionario_logica.php', { method: 'POST', body: formData })
-        .then(r => r.json())
-        .then(data => {
-            if (data.sucesso) {
-                mostrarNotificacao(`Cadastrado com sucesso! Código: ${data.codigo}`, '#004d40');
-                form.reset();
-            } else {
-                mostrarNotificacao('Erro ao guardar. Tente novamente.', '#c62828');
+        .then(r => r.text())
+        .then(text => {
+            try {
+                const data = JSON.parse(text);
+                if (data.sucesso) {
+                    mostrarSucesso(data.codigo, data.senha_provisoria);
+                    form.reset();
+                    if (typeof carregarTabela === 'function') carregarTabela();
+                } else {
+                    mostrarNotificacao('Erro: ' + (data.erro || 'Falha ao guardar'), '#c62828');
+                }
+            } catch (e) {
+                mostrarNotificacao('Erro crítico no servidor.', '#c62828');
             }
         })
         .catch(() => mostrarNotificacao('Erro de comunicação.', '#c62828'));
@@ -100,12 +121,19 @@ function enviarParaBD() {
 function alternarSessao(tipo) {
     const cadastro = document.getElementById('sessao-cadastro');
     const lista    = document.getElementById('sessao-lista');
+    const btnCad   = document.getElementById('btn-cadastro');
+    const btnLista = document.getElementById('btn-lista');
+
     if (tipo === 'lista') {
         cadastro.style.display = 'none';
         lista.style.display    = 'block';
+        btnCad.classList.remove('ativa');
+        btnLista.classList.add('ativa');
         carregarTabela();
     } else {
         cadastro.style.display = 'block';
         lista.style.display    = 'none';
+        btnCad.classList.add('ativa');
+        btnLista.classList.remove('ativa');
     }
 }

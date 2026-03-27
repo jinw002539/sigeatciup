@@ -187,3 +187,93 @@
     .heroi        { padding: 70px 0 60px; }
     .titulo-heroi { font-size: 2rem; }
 }
+
+/* ── Abas ─────────────────────────────────────────────────── */
+.secao-abas { padding-bottom: 60px; }
+
+.abas-navegacao {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    border-bottom: 2px solid var(--cinza-borda);
+    padding-bottom: 0;
+}
+
+.aba-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    padding: 11px 20px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: .88rem;
+    color: var(--texto-suave);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: color var(--transicao), border-color var(--transicao);
+    border-radius: 0;
+}
+.aba-btn:hover { color: var(--verde); }
+.aba-btn.ativa  { color: var(--verde); border-bottom-color: var(--verde); }
+
+.conteudo-aba        { display: none; }
+.conteudo-aba.ativa  { display: block; }
+
+/* ── Cards de Info ───────────────────────────────────────── */
+.cartao-info {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 28px 24px;
+    height: 100%;
+    box-shadow: var(--sombra-s);
+    border: 1px solid var(--cinza-borda);
+    border-top: 4px solid var(--verde);
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+.cartao-info:hover { transform: translateY(-4px); box-shadow: var(--sombra-m); }
+.cartao-info h3 { font-size: 1.05rem; color: var(--verde); margin-bottom: 10px; }
+.cartao-info p  { font-size: .9rem; color: var(--texto-suave); line-height: 1.7; margin: 0; }
+
+.icone-cartao {
+    font-size: 1.8rem;
+    color: var(--verde);
+    margin-bottom: 14px;
+    display: block;
+}
+.icone-cartao.texto-azul   { color: var(--azul); }
+.icone-cartao.texto-verde  { color: var(--verde); }
+.icone-cartao.texto-laranja { color: #e65100; }
+
+/* Destaques por departamento */
+.destaque-redes     { border-top-color: var(--azul); }
+.destaque-redes .icone-cartao, .destaque-redes h3 { color: var(--azul); }
+.destaque-sistemas  { border-top-color: #7b1fa2; }
+.destaque-sistemas .icone-cartao, .destaque-sistemas h3 { color: #7b1fa2; }
+.destaque-secretaria { border-top-color: #e65100; }
+.destaque-secretaria .icone-cartao, .destaque-secretaria h3 { color: #e65100; }
+.destaque-admin     { border-top-color: var(--verde); }
+
+/* Card missão/visão */
+.cartao-missao { border-top-color: var(--azul); }
+.cartao-missao .icone-cartao, .cartao-missao h3 { color: var(--azul); }
+.cartao-visao  { border-top-color: #7b1fa2; }
+.cartao-visao .icone-cartao, .cartao-visao h3  { color: #7b1fa2; }
+
+/* Valores */
+.valor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background: var(--cinza-fundo);
+    border-radius: var(--raio-s);
+    font-size: .85rem;
+    font-weight: 600;
+    color: var(--verde);
+    text-align: center;
+}
+.valor-item i { font-size: 1.4rem; }

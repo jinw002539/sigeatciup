@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login — SIGATCIUP</title>
+        <title>Login — SIGEATCIUP</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="css/login.css">
@@ -15,7 +15,7 @@
         <div class="cartao-login revelar visivel">
             <aside class="lado-imagem">
                 <img src="imagens/imagem.png" alt="Logo UP">
-                <h2>SIGATCIUP</h2>
+                <h2>SIGEATCIUP</h2>
                 <p>Sistema de Gestão e Agendamento de Tarefas do Centro de Informática da UP</p>
             </aside>
             <main class="lado-formulario">

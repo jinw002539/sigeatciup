@@ -1,0 +1,279 @@
+/* director.css */
+
+/* ── Cartão principal ────────────────────────────────────── */
+.cartao-director {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 28px;
+    box-shadow: var(--sombra-s);
+    border: 1px solid var(--cinza-borda);
+    height: 100%;
+}
+
+.cabecalho-cartao-director {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1.5px solid var(--cinza-borda);
+}
+.cabecalho-cartao-director > i {
+    font-size: 1.8rem;
+    color: var(--verde);
+    background: rgba(0,77,64,.08);
+    width: 48px; height: 48px;
+    border-radius: var(--raio-s);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+.cabecalho-cartao-director h3    { font-size: 1.05rem; color: var(--verde); margin: 0 0 2px; }
+.cabecalho-cartao-director small { color: var(--texto-suave); font-size: .8rem; }
+
+/* ── Campos do formulário ────────────────────────────────── */
+.grupo-campo-dir { margin-bottom: 14px; }
+
+.grupo-campo-dir label {
+    display: block;
+    font-size: .75rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-bottom: 6px;
+}
+
+.campo-dir {
+    width: 100%;
+    padding: 10px 13px;
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: var(--raio-s);
+    font-size: .92rem;
+    font-family: 'DM Sans', sans-serif;
+    background: #fafbfa;
+    color: var(--texto);
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+.campo-dir:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 3px rgba(0,77,64,.1);
+    outline: none;
+    background: var(--branco);
+}
+
+/* ── Opções de nível (radio estilizado) ──────────────────── */
+.opcoes-nivel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.opcao-nivel {
+    cursor: pointer;
+    margin: 0;
+}
+.opcao-nivel input[type="radio"] { display: none; }
+
+.opcao-nivel span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 8px;
+    border: 1.5px solid var(--cinza-borda);
+    border-radius: var(--raio-s);
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+    text-align: center;
+    transition: all var(--transicao);
+    background: var(--cinza-fundo);
+}
+.opcao-nivel span i { font-size: 1.3rem; }
+
+.opcao-nivel input:checked + span {
+    border-color: var(--verde);
+    background: rgba(0,77,64,.07);
+    color: var(--verde);
+    box-shadow: 0 0 0 2px rgba(0,77,64,.15);
+}
+
+/* ── Botão de registar ───────────────────────────────────── */
+.botao-registar {
+    width: 100%;
+    padding: 12px;
+    background: var(--verde);
+    color: var(--branco);
+    border: none;
+    border-radius: var(--raio-s);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    box-shadow: 0 4px 14px rgba(0,77,64,.25);
+    transition: background var(--transicao), transform var(--transicao);
+}
+.botao-registar:hover { background: var(--verde-escuro); transform: translateY(-2px); }
+
+/* ── Tabela ──────────────────────────────────────────────── */
+.tabela-cabecalho-dir th {
+    background: var(--verde);
+    color: var(--branco);
+    font-family: 'Syne', sans-serif;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 16px;
+    border: none;
+}
+
+.badge-nivel-geral {
+    background: #e3f2fd; color: #1565c0;
+    font-size: .7rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: .5px;
+}
+.badge-nivel-dept {
+    background: #f1f8e9; color: #33691e;
+    font-size: .7rem; font-weight: 700;
+    padding: 3px 10px; border-radius: 20px;
+    text-transform: uppercase; letter-spacing: .5px;
+}
+
+/* ── Modais ──────────────────────────────────────────────── */
+.sobreposicao-dir {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,20,18,.65);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.caixa-modal-dir {
+    background: var(--branco);
+    border-radius: 18px;
+    padding: 30px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.22);
+    animation: entrarModal .3s cubic-bezier(.34,1.56,.64,1);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.cabecalho-modal-dir {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1.5px solid var(--cinza-borda);
+}
+.cabecalho-modal-dir h3 { color: var(--verde); font-size: 1.05rem; margin: 0; }
+
+.fechar-dir-btn {
+    background: var(--cinza-fundo);
+    border: none; border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: var(--texto-suave); font-size: .85rem;
+    transition: background var(--transicao), color var(--transicao);
+}
+.fechar-dir-btn:hover { background: #fde8e8; color: #c62828; }
+
+/* Resumo no modal */
+.resumo-dir {
+    background: var(--cinza-fundo);
+    border-left: 4px solid var(--verde);
+    border-radius: var(--raio-s);
+    padding: 14px;
+}
+
+.linha-resumo-dir {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--cinza-borda);
+    font-size: .87rem;
+}
+.linha-resumo-dir:last-of-type { border-bottom: none; }
+.linha-resumo-dir span   { color: var(--texto-suave); font-size: .8rem; }
+.linha-resumo-dir strong { color: var(--texto); }
+
+.acoes-modal-dir {
+    display: flex; gap: 10px;
+    margin-top: 18px; padding-top: 16px;
+    border-top: 1.5px solid var(--cinza-borda);
+}
+
+.btn-confirmar-dir {
+    flex: 1; padding: 11px;
+    background: var(--verde); color: var(--branco);
+    border: none; border-radius: var(--raio-s);
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: .93rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background var(--transicao), transform var(--transicao);
+}
+.btn-confirmar-dir:hover { background: var(--verde-escuro); transform: translateY(-1px); }
+
+.btn-cancelar-dir {
+    padding: 11px 18px;
+    background: var(--cinza-fundo); color: var(--texto-suave);
+    border: 1.5px solid var(--cinza-borda); border-radius: var(--raio-s);
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: .93rem;
+    cursor: pointer; display: flex; align-items: center;
+    transition: background var(--transicao), color var(--transicao);
+}
+.btn-cancelar-dir:hover { background: #fde8e8; color: #c62828; border-color: #f5c6c6; }
+
+/* ── Modal de Sucesso ────────────────────────────────────── */
+.caixa-sucesso-dir { text-align: center; max-width: 400px !important; }
+
+.icone-sucesso-dir {
+    font-size: 3.5rem; color: #2e7d32;
+    margin-bottom: 12px;
+    animation: surgirIcone .5s cubic-bezier(.34,1.56,.64,1);
+}
+
+@keyframes surgirIcone {
+    from { transform: scale(0); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.titulo-sucesso-dir { color: var(--verde); font-size: 1.3rem; margin-bottom: 4px; }
+.sub-sucesso-dir    { color: var(--texto-suave); font-size: .88rem; margin-bottom: 18px; }
+
+.credenciais-dir {
+    background: var(--cinza-fundo);
+    border-radius: var(--raio-s);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    text-align: left;
+    border: 1.5px solid var(--cinza-borda);
+}
+
+.linha-cred-dir {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--cinza-borda);
+    font-size: .87rem;
+}
+.linha-cred-dir:last-child { border-bottom: none; }
+.linha-cred-dir span   { color: var(--texto-suave); font-size: .82rem; }
+.linha-cred-dir strong {
+    font-family: 'Courier New', monospace;
+    color: var(--verde);
+    background: rgba(0,77,64,.08);
+    padding: 2px 9px;
+    border-radius: 5px;
+}
