@@ -35,7 +35,7 @@ $departamentos = $stmtDepts->fetchAll(PDO::FETCH_ASSOC);
             <a href="../dashboards/dashboard_admin.php" class="link-menu"><i class="bi bi-house-door"></i> Home</a>
             <a href="funcionario.php" class="link-menu"><i class="bi bi-people"></i> Funcionários</a>
             <a href="../tarefas/tarefas.php" class="link-menu"><i class="bi bi-check2-square"></i> Tarefas</a>
-            <a href="#" class="link-menu ativo"><i class="bi bi-person-badge"></i> Diretores</a>
+            <a href="..director.php" class="link-menu ativo"><i class="bi bi-person-badge"></i> Diretores</a>
             <a href="#" class="link-menu"><i class="bi bi-file-earmark-pdf"></i> Relatórios</a>
             <a href="../logout.php" class="link-menu sair"><i class="bi bi-box-arrow-right"></i> Sair</a>
         </nav>
@@ -72,7 +72,7 @@ $departamentos = $stmtDepts->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="grupo-campo-dir">
                             <label><i class="bi bi-card-text me-1"></i>Bilhete de Identidade</label>
-                            <input type="text" id="bi" name="bi" class="campo-dir" placeholder="12 dígitos + 1 letra" required>
+                            <input type="text" id="bi" name="bi" class="campo-dir" maxlength="13" placeholder="12 dígitos + 1 letra" required>
                         </div>
                         <div class="grupo-campo-dir">
                             <label><i class="bi bi-envelope me-1"></i>E-mail Institucional</label>

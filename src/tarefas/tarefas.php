@@ -39,7 +39,7 @@ $deptUser = htmlspecialchars($_SESSION['dirDept'] ?? '');
             <a href="../dashboards/dashboard_admin.php" class="link-menu"><i class="bi bi-house-door"></i> Home</a>
             <a href="../cadastro/funcionario.php" class="link-menu"><i class="bi bi-people"></i> Funcionários</a>
             <a href="#" class="link-menu ativo"><i class="bi bi-check2-square"></i> Tarefas</a>
-            <a href="#" class="link-menu"><i class="bi bi-person-badge"></i> Diretores</a>
+            <a href="../cadastro/director.php" class="link-menu"><i class="bi bi-person-badge"></i> Diretores</a>
             <a href="#" class="link-menu"><i class="bi bi-file-earmark-pdf"></i> Relatórios</a>
             <?php else: ?>
             <a href="../dashboards/dashboard_director_dept.php" class="link-menu"><i class="bi bi-house-door"></i> Home</a>
@@ -140,11 +140,11 @@ $deptUser = htmlspecialchars($_SESSION['dirDept'] ?? '');
                 <div class="grupo-campo">
                     <label>Departamento</label>
                     <select id="tarefa-dept" class="campo-entrada">
-                        <option value="">— Seleccionar —</option>
+                        <!-- <option value="">— Seleccionar —</option> -->
                         <option value="Redes">Redes</option>
                         <option value="Sistemas">Sistemas</option>
                         <option value="Secretaria">Secretaria</option>
-                        <option value="Administrativo">Administrativo</option>
+                        <!-- <option value="Administrativo">Administrativo</option> -->
                     </select>
                 </div>
                 <?php endif; ?>

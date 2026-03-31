@@ -81,12 +81,13 @@ $dashboardLink = $ehAdmin ? '../dashboards/dashboard_admin.php' : '../dashboards
                     </div>
                     <div class="grupo-campo">
                         <label>Nº do BI</label>
-                        <input type="text" name="bi" id="bi" class="campo-entrada" placeholder="000000000000A" required>
+                        <input type="text" name="bi" id="bi" class="campo-entrada" maxlength="13" placeholder="12 dígitos + 1 letra" required>
                     </div>
                     <div class="grupo-campo">
                         <label>E-mail Institucional</label>
                         <input type="email" name="email" id="email" class="campo-entrada" placeholder="joao@up.ac.mz" required>
                     </div>
+
                     <div class="grupo-campo">
                         <label>Departamento</label>
                         <?php if ($ehAdmin): ?>
@@ -97,15 +98,17 @@ $dashboardLink = $ehAdmin ? '../dashboards/dashboard_admin.php' : '../dashboards
                                 <?php endforeach; ?>
                             </select>
                         <?php else: ?>
-                            <input type="text" class="campo-entrada" value="<?= htmlspecialchars($_SESSION['dirDeptNome'] ?? '') ?>" readonly>
-                            <input type="hidden" name="id_departamento" id="id_departamento" value="<?= $_SESSION['dirDeptId'] ?? '' ?>">
+                            <input type="text" class="campo-entrada" value="<?= htmlspecialchars($_SESSION['dirDeptNome'] ?? 'Meu Departamento') ?>" readonly>
+                            
+                            <input type="hidden" name="id_departamento" id="id_departamento" value="<?= $_SESSION['dirDeptId'] ?>">
                         <?php endif; ?>
                     </div>
+
                     <?php if ($ehDirDept): ?>
-                    <div class="grupo-campo">
+                    <!-- <div class="grupo-campo">
                         <label>Cargo</label>
                         <input type="text" name="cargo" id="cargo" class="campo-entrada" placeholder="Ex: Técnico de Redes" required>
-                    </div>
+                    </div> -->
                     <?php else: ?>
                     <input type="hidden" name="cargo" value="">
                     <?php endif; ?>

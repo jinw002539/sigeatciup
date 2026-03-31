@@ -1,36 +1,37 @@
 function revisarDados() {
-    const nome        = document.getElementById('nome').value.trim();
-    const bi          = document.getElementById('bi').value.trim();
-    const email       = document.getElementById('email').value.trim();
-    const deptoSelect = document.getElementById('id_departamento');
-    const nivelSelect = document.getElementById('nivel_acesso');
-    const cargoEl     = document.getElementById('cargo');
+    const nome          = document.getElementById('nome').value.trim();
+    const bi            = document.getElementById('bi').value.trim();
+    const email         = document.getElementById('email').value.trim();
+    const deptoElemento = document.getElementById('id_departamento');
+    const nivelSelect   = document.getElementById('nivel_acesso');
 
-    if (!nome || !bi || !email || !deptoSelect || !deptoSelect.value) {
+    // Validação básica
+    if (!nome || !bi || !email || !deptoElemento || !deptoElemento.value) {
         mostrarNotificacao('Preencha todos os campos obrigatórios.', '#c62828');
         return;
     }
 
-    const biRegex = /^[0-9]{12}[A-Z]{1}$/;
-    if (!biRegex.test(bi)) {
-        mostrarNotificacao('BI inválido. Formato: 12 dígitos + 1 letra maiúscula.', '#c62828');
-        return;
+    // Lógica para pegar o NOME do departamento para o resumo
+    let deptoNome = "";
+    if (deptoElemento.tagName === "SELECT") {
+        deptoNome = deptoElemento.options[deptoElemento.selectedIndex].text;
+    } else {
+        // Se for o Diretor, pegamos o texto do input que está visível (readonly)
+        deptoNome = document.querySelector('input[readonly].campo-entrada').value;
     }
 
-    const deptoNome = deptoSelect.options[deptoSelect.selectedIndex].text;
     const nivelNome = nivelSelect.options[nivelSelect.selectedIndex].text;
-    const cargoVal  = cargoEl && cargoEl.type !== 'hidden' ? cargoEl.value.trim() : null;
 
+    // Montar o resumo no modal
     document.getElementById('dadosResumo').innerHTML = `
         <div class="resumo-dados-func">
-            <div class="linha-resumo-func"><span>Nome</span><strong>${nome}</strong></div>
-            <div class="linha-resumo-func"><span>BI</span><strong>${bi}</strong></div>
-            <div class="linha-resumo-func"><span>E-mail</span><strong>${email}</strong></div>
-            <div class="linha-resumo-func"><span>Departamento</span><strong>${deptoNome}</strong></div>
-            ${cargoVal ? `<div class="linha-resumo-func"><span>Cargo</span><strong>${cargoVal}</strong></div>` : ''}
-            <div class="linha-resumo-func"><span>Nível</span><strong>${nivelNome}</strong></div>
-            <p class="nota-resumo-func"><i class="bi bi-envelope me-1"></i>Link de ativação será enviado para este e-mail.</p>
-        </div>`;
+            <p><strong>Nome:</strong> ${nome}</p>
+            <p><strong>BI:</strong> ${bi}</p>
+            <p><strong>E-mail:</strong> ${email}</p>
+            <p><strong>Departamento:</strong> ${deptoNome}</p>
+            <p><strong>Nível:</strong> ${nivelNome}</p>
+        </div>
+    `;
 
     document.getElementById('fundo-modal').style.display = 'flex';
 }
