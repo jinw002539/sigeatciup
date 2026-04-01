@@ -34,11 +34,16 @@
         if ($periodo === 't4') $where .= " AND EXTRACT(MONTH FROM t.prazo_execucao) BETWEEN 10 AND 12";
 
         try {
-            $sql = "SELECT t.*, d.nome_departamento 
-                    FROM tarefas t
-                    LEFT JOIN departamentos d ON t.id_departamento = d.id
-                    $where 
-                    ORDER BY t.criado_em DESC";
+            // $sql = "SELECT t.*, d.nome_departamento 
+            //         FROM tarefas t
+            //         LEFT JOIN departamentos d ON t.id_departamento = d.id
+            //         $where 
+            //         ORDER BY t.criado_em DESC";
+
+            $sql = "SELECT id, actividade, objectivos, resultado_esperado, 
+               prazo_execucao, estado, id_departamento, 
+               bloqueada, autorizada_por_direcao 
+            FROM tarefas " . $where . " ORDER BY criado_em DESC";
             
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
@@ -51,75 +56,84 @@
         exit();
     }
 
-    // ── 2. CRIAR OU EDITAR TAREFA ──────────────────────────────
-    if ($metodo === 'POST') {
+   // ── 2. CRIAR OU EDITAR TAREFA ──────────────────────────────
+    if ($metodo === 'POST' && isset($_GET['salvar'])) {
         $dados = $_POST;
-        $id    = $dados['id'] ?? null;
+        $id_periodo = $dados['id_periodo'] ?? null;
+        
+        // Define o departamento: se for admin, usa o do POST, se for diretor, usa o da sessão
+        $id_dept = ($ehAdmin) ? ($dados['id_departamento'] ?? null) : ($_SESSION['dirDeptId'] ?? null);
 
-        // Lógica de Atribuição de Departamento e Autorização
-        if ($ehDirDept) {
-            // Diretor de Dept: Força o seu próprio departamento e precisa de aprovação
-            $id_departamento = $_SESSION['dirDeptId'];
-            $autorizada = false; 
-            $estado = 'Pendente';
-        } else if ($ehAdmin) {
-            // Admin: Usa o departamento vindo do form e já nasce autorizada
-            $id_departamento = $dados['id_departamento'];
-            $autorizada = true;
-            $estado = 'Aguardando';
-        } else {
-            echo json_encode(['sucesso' => false, 'erro' => 'Funcionários não criam tarefas.']);
+        if (!$id_periodo) {
+            echo json_encode(['sucesso' => false, 'erro' => 'Período obrigatório.']);
             exit();
         }
 
-        if ($id) {
-            // EDITAR TAREFA
-            try {
+        try {
+            // 1. Inteligência: Buscar o mês final do período para calcular o prazo
+            $stmtP = $pdo->prepare("SELECT mes_fim FROM periodos_config WHERE id = ?");
+            $stmtP->execute([$id_periodo]);
+            $conf = $stmtP->fetch(PDO::FETCH_ASSOC);
+            
+            if (!$conf) {
+                echo json_encode(['sucesso' => false, 'erro' => 'Configuração de período não encontrada.']);
+                exit();
+            }
+
+            $ano_atual = date('Y');
+            // Calcula o último dia do mês final (ex: se mes_fim=3, gera 2026-03-31)
+            $data_prazo = date("$ano_atual-{$conf['mes_fim']}-t");
+
+            if (!empty($dados['id'])) {
+                // EDITAR TAREFA EXISTENTE
                 $sql = "UPDATE tarefas SET 
                         actividade = :act, 
                         objectivos = :obj, 
                         resultado_esperado = :res, 
-                        prazo_execucao = :prazo 
+                        prazo_execucao = :prazo, 
+                        id_departamento = :dept, 
+                        id_periodo = :per, 
+                        estado = :est
                         WHERE id = :id";
                 
                 $params = [
                     'act'   => $dados['actividade'],
                     'obj'   => $dados['objectivos'],
                     'res'   => $dados['resultado_esperado'],
-                    'prazo' => $dados['prazo_execucao'],
-                    'id'    => $id
+                    'prazo' => $data_prazo,
+                    'dept'  => $id_dept,
+                    'per'   => $id_periodo,
+                    'est'   => $dados['estado'],
+                    'id'    => $dados['id']
                 ];
+            } else {
+                // CRIAR NOVA TAREFA
+                $estadoInicial = $ehAdmin ? 'Autorizada' : 'Aguardando';
+                $autorizada    = $ehAdmin ? 't' : 'f'; // 't'/'f' para compatibilidade com o teu Postgres
 
-                // Se for Diretor de Dept, a edição volta a tarefa para "Pendente" de autorização
-                if ($ehDirDept) {
-                    $sql = str_replace("WHERE", ", autorizada_por_direcao = false, estado = 'Pendente' WHERE", $sql);
-                }
-
-                $stmt = $pdo->prepare($sql);
-                echo json_encode(['sucesso' => $stmt->execute($params)]);
-            } catch (PDOException $e) {
-                echo json_encode(['sucesso' => false, 'erro' => $e->getMessage()]);
-            }
-        } else {
-            // CRIAR NOVA TAREFA
-            try {
-                $sql = "INSERT INTO tarefas (actividade, objectivos, resultado_esperado, prazo_execucao, estado, id_departamento, autorizada_por_direcao)
-                        VALUES (:act, :obj, :res, :prazo, :estado, :dept, :aut)";
+                $sql = "INSERT INTO tarefas (actividade, objectivos, resultado_esperado, prazo_execucao, estado, id_departamento, id_periodo, autorizada_por_direcao)
+                        VALUES (:act, :obj, :res, :prazo, :est, :dept, :per, :aut)";
                 
-                $stmt = $pdo->prepare($sql);
-                $ok = $stmt->execute([
-                    'act'    => $dados['actividade'],
-                    'obj'    => $dados['objectivos'] ?? '',
-                    'res'    => $dados['resultado_esperado'] ?? '',
-                    'prazo'  => $dados['prazo_execucao'],
-                    'estado' => $estado,
-                    'dept'   => $id_departamento,
-                    'aut'    => $autorizada
-                ]);
-                echo json_encode(['sucesso' => $ok]);
-            } catch (PDOException $e) {
-                echo json_encode(['sucesso' => false, 'erro' => $e->getMessage()]);
+                $params = [
+                    'act'   => $dados['actividade'],
+                    'obj'   => $dados['objectivos'],
+                    'res'   => $dados['resultado_esperado'],
+                    'prazo' => $data_prazo,
+                    'est'   => $estadoInicial,
+                    'dept'  => $id_dept,
+                    'per'   => $id_periodo,
+                    'aut'   => $autorizada
+                ];
             }
+
+            $stmt = $pdo->prepare($sql);
+            $resultado = $stmt->execute($params);
+            
+            echo json_encode(['sucesso' => $resultado]);
+
+        } catch (PDOException $e) {
+            // Se houver erro de FK ou coluna, ele dirá exatamente o quê
+            echo json_encode(['sucesso' => false, 'erro' => "Erro na BD: " . $e->getMessage()]);
         }
         exit();
     }

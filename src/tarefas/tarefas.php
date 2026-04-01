@@ -1,17 +1,18 @@
 <?php
-session_start();
-header('Cache-Control: no-cache, no-store, must-revalidate');
+    session_start();
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    require_once('../data/config.php');
 
-$ehAdmin   = isset($_SESSION['adminLog']) && $_SESSION['adminLog'] === true;
-$ehDirDept = isset($_SESSION['dirLog'])   && ($_SESSION['dirNivel'] ?? '') === 'departamento';
+    $ehAdmin   = isset($_SESSION['adminLog']) && $_SESSION['adminLog'] === true;
+    $ehDirDept = isset($_SESSION['dirLog'])   && ($_SESSION['dirNivel'] ?? '') === 'departamento';
 
-if (!$ehAdmin && !$ehDirDept) {
-    header('Location: ../login.php');
-    exit();
-}
+    if (!$ehAdmin && !$ehDirDept) {
+        header('Location: ../login.php');
+        exit();
+    }
 
-$nomeUser = htmlspecialchars($ehAdmin ? $_SESSION['adminNome'] : $_SESSION['dirNome']);
-$deptUser = htmlspecialchars($_SESSION['dirDept'] ?? '');
+    $nomeUser = htmlspecialchars($ehAdmin ? $_SESSION['adminNome'] : $_SESSION['dirNome']);
+    $deptUser = htmlspecialchars($_SESSION['dirDept'] ?? '');
 ?>
 <!DOCTYPE html>
 <html lang="pt">
@@ -121,20 +122,18 @@ $deptUser = htmlspecialchars($_SESSION['dirDept'] ?? '');
                         <textarea id="tarefa-resultado" class="campo-entrada" rows="3" placeholder="O que se espera alcançar?"></textarea>
                     </div>
                 </div>
-                <div class="row g-3">
-                    <div class="col-md-6 grupo-campo">
-                        <label>Prazo de Execução</label>
-                        <input type="date" id="tarefa-prazo" class="campo-entrada" required>
-                    </div>
-                    <div class="col-md-6 grupo-campo">
-                        <label>Estado</label>
-                        <select id="tarefa-estado" class="campo-entrada">
-                            <option value="Por atribuir">Por atribuir</option>
-                            <option value="Em curso">Em curso</option>
-                            <option value="Concluída">Concluída</option>
-                            <option value="Cancelada">Cancelada</option>
-                        </select>
-                    </div>
+                <div class="col-md-6 grupo-campo">
+                    <label><i class="bi bi-calendar-event me-2"></i>Período de Execução</label>
+                    <select id="tarefa-periodo" class="campo-entrada" required>
+                        <option value="">-- Selecione o Período --</option>
+                        <?php
+                        // Busca os períodos ativos (agora apenas os 6 que sobraram)
+                        $stmtP = $pdo->query("SELECT id, rotulo FROM periodos_config WHERE ativo = true ORDER BY id ASC");
+                        while($p = $stmtP->fetch(PDO::FETCH_ASSOC)) {
+                            echo "<option value='{$p['id']}'>{$p['rotulo']}</option>";
+                        }
+                        ?>
+                    </select>
                 </div>
                 <?php if ($ehAdmin): ?>
                 <div class="grupo-campo">
