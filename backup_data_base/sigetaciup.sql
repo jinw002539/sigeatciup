@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict cIYWi7ipTGoxcb5R3lGhbcGhK15mhUue9z5VKv7uefO2par2ahg0fdw3Av2gOsT
+\restrict vcUZCbhK3HKb1ObbcpzXX6ZlDdTcVZ8chZhZV1p3S9RuOAzwwNnFHoEnnGk1ejs
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
@@ -330,6 +330,7 @@ COPY public.directores (id, nome, genero, bi, codigo_acesso, senha_hash, status,
 2	Director Geral CIUP	F	199783991089F	00.1234.2026	$2y$10$fW3r7S7ZAnmOq9rSj38S8eN199p7k3r.M10I2hK3M2f2y/G2.S2qW	t	2026-03-25 23:04:33.05585	geral	admin@ciup.up	3
 7	Herold Fintch	M	736467340165A	00.4807.2026	$2y$12$zQrYC6ldVcALrtGuEKOoJeJzKNp72xa96/yOQFi9djWmtMLUC4Rsy	t	2026-03-26 11:40:07.96213	departamento	fintchh@gmail.com	5
 8	Elliot Alderson	M	562340987633S	00.2548.2026	$2y$12$lbYP8zWZgZ9g7pHuwsMDUeQfMMhAFuPxCuT1kgVIimbJ4A2MaAISu	t	2026-03-26 13:59:01.129012	departamento	aldersone@gmail.com	1
+9	Mia Khalifa	F	738873553783F	00.5168.2026	$2y$12$Ox/ROVzAM2qL5jMya1WPDOge82qmqHl8KBkC3ZKR3E/ylBts7MNKu	t	2026-04-02 09:22:06.472684	departamento	khalifamia@gmail.com	2
 \.
 
 
@@ -348,6 +349,8 @@ COPY public.funcionarios (id, nome, genero, bi, codigo_acesso, senha_hash, statu
 8	Alexandre Mucapera	M	123456789012W	01.5376.2026	$2y$12$/w8UQ5ZdFoOTa8rfyy/MFe6IuYVBQ0BZUfKrLtFpVIby2wbaANoCK	t	2026-03-31 02:48:24.289303	alexmuc@gmail.com	5	tecnico
 9	Carlos Cossa	M	627363737594K	01.0101.2026	$2y$12$SKHQjbRtOPa9.jYYRtSDUuJHENX6xTYtoIse7bSQTCfhNkHD3ZUGK	t	2026-03-31 03:21:03.346503	ccossa@gmail.com	5	tecnico
 10	Marcela Capezula	M	457465847654H	01.8718.2026	$2y$12$ZUVyEs1CtwDgollwp2/ys.FZYrKwBD3Cnrhf48LHRc9YStL.rHDpa	t	2026-03-31 03:23:06.767354	capezula@gmail.com	1	Secretaria
+11	Jalisio Jaime	M	788887454937P	01.2525.2026	$2y$12$W4u0PeMWhWxMgZ6/xhTCX.7Abnf6CW8ATUsr0XUkflANsBYjywFsG	t	2026-04-02 09:04:47.680573	jeja@gmail.com	1	tecnico
+12	Cacilda Bela	M	427353353735B	01.4469.2026	$2y$12$1.iBQWgD9XMAWyn4atGmjeXfZSNAYS6IKeAsDoZrvqCI.HxdZHDau	t	2026-04-02 09:31:19.022016	belacda@gmail.com	2	Secretaria
 \.
 
 
@@ -370,15 +373,36 @@ COPY public.periodos_config (id, rotulo, mes_inicio, mes_fim, ativo) FROM stdin;
 --
 
 COPY public.tarefas (id, actividade, objectivos, resultado_esperado, prazo_execucao, estado, id_funcionario, criado_em, autorizado_por_direcao, bloqueado, id_departamento, autorizada_por_direcao, relatorio_entregue, bloqueada, caminho_arquivo, observacoes_falha, id_periodo, data_criacao) FROM stdin;
-49	Monitorização de Memoria RAM	Troca de RAM em todos os PCs	PCs mais rapidos e eficientes	2026-01-06	Aguardando	\N	2026-03-27 10:58:34.737132	f	f	1	t	f	t	\N	\N	\N	2026-04-02 03:57:00.532765
-50	Monitorização de Memoria RAM	dsvid	bvsjdhbvi	2026-01-06	Aguardando	\N	2026-03-27 10:59:08.160423	f	f	5	t	f	t	\N	\N	\N	2026-04-02 03:57:00.532765
-52	Monitorização de Memoria RAM	Todos od PCs da CIUP com novas RAMs	PCs mais potentes para os trabalhos	2026-03-30	Autorizada	\N	2026-04-01 06:51:53.303091	f	f	5	t	f	t	\N	\N	1	2026-04-02 03:57:00.532765
-53	Monitorização de Memoria RAM	Todos od PCs da CIUP com novas RAMs	PCs mais potentes para os trabalhos	2026-03-30	Autorizada	\N	2026-04-01 06:51:53.498091	f	f	5	t	f	t	\N	\N	1	2026-04-02 03:57:00.532765
-54	Monitorização de Memoria RAM	Todos od PCs da CIUP com novas RAMs	PCs mais potentes para os trabalhos	2026-03-30	Autorizada	\N	2026-04-01 06:51:53.555841	f	f	5	t	f	t	\N	\N	1	2026-04-02 03:57:00.532765
-55	Monitorização de Memoria RAM	Todos od PCs da CIUP com novas RAMs	PCs mais potentes para os trabalhos	2026-03-30	Autorizada	\N	2026-04-01 06:51:53.612411	f	f	5	t	f	t	\N	\N	1	2026-04-02 03:57:00.532765
-56	Monitorização de Memoria RAM	Todos od PCs da CIUP com novas RAMs	PCs mais potentes para os trabalhos	2026-03-30	Autorizada	\N	2026-04-01 06:51:53.671242	f	f	5	t	f	t	\N	\N	1	2026-04-02 03:57:00.532765
-51	troca de RAM	Todos com boa RAM	Todos pcs com novas RAM	2026-08-02	Em curso	8	2026-03-31 03:57:56.506649	f	f	5	t	f	f	\N	\N	\N	2026-04-02 03:57:00.532765
-58	bfbfbfgbds	df bdsfbfvbfd	fbfdbfb	2026-09-30	Autorizada	\N	2026-04-02 08:30:22.277027	f	f	3	t	f	f	\N	\N	3	2026-04-02 08:30:22.277027
+3	Monitoria de Tráfego de Link	Identificar gargalos na banda larga	Relatório de consumo mensal	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	2	2026-04-02 09:27:48.141992
+4	Substituição de Patch Cords	Trocar cabos danificados no Rack	Conectividade física restaurada	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	2	2026-04-02 09:27:48.141992
+5	Implementação de VLAN para Voz	Isolar tráfego de VoIP	Qualidade de chamadas superior	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	5	2026-04-02 09:27:48.141992
+6	Auditoria de Segurança Wireless	Trocar senhas e protocolos WPA3	Rede sem fios impenetrável	2026-09-30	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	3	2026-04-02 09:27:48.141992
+7	Manutenção Preventiva de UPS	Testar baterias dos No-breaks	Autonomia garantida em falhas	2026-09-30	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	3	2026-04-02 09:27:48.141992
+8	Configuração de VPN Client-to-Site	Acesso remoto para administradores	Conexão externa segura	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	4	2026-04-02 09:27:48.141992
+9	Upgrade de Firmware de Switches	Corrigir bugs de empilhamento	Equipamentos actualizados	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	6	2026-04-02 09:27:48.141992
+10	Mapeamento de Pontos de Rede	Actualizar planta lógica do edifício	Documentação de rede em dia	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	f	\N	\N	6	2026-04-02 09:27:48.141992
+13	Backup Integral de Sexta-Feira	Garantir cópia off-site dos dados	Ficheiro .bak verificado	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	2	2026-04-02 09:27:48.221375
+14	Optimização de Scripts PHP	Reduzir tempo de carregamento das páginas	Páginas abrem em < 2 segundos	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	2	2026-04-02 09:27:48.221375
+15	Criação de Dashboard de Estatísticas	Visualizar KPIs em tempo real	Gráficos dinâmicos no Admin	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	5	2026-04-02 09:27:48.221375
+16	Integração com API do Gemini	Automatizar geração de relatórios mensais	Relatórios em PDF via IA	2026-09-30	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	3	2026-04-02 09:27:48.221375
+18	Testes de Carga no Servidor Web	Verificar limite de utilizadores simultâneos	Sistema aguenta 500 users	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	4	2026-04-02 09:27:48.221375
+19	Implementação de Dark Mode no SIGATCI	Melhorar usabilidade nocturna	Interface com tema escuro	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	6	2026-04-02 09:27:48.221375
+23	Inventário de Material de Escritório	Controlar stock de toners e papel	Pedido de reposição efectuado	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	2	2026-04-02 09:27:48.26291
+24	Digitalização de Certificados Antigos	Criar cópia digital de arquivos de 2020	Base de dados digital completa	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	2	2026-04-02 09:27:48.26291
+25	Actualização de Contactos de Docentes	Garantir lista de emails correcta	Agenda institucional limpa	2026-06-30	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	5	2026-04-02 09:27:48.26291
+26	Preparação de Actas de Reunião	Transcrever decisões do conselho	Actas assinadas e arquivadas	2026-09-30	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	3	2026-04-02 09:27:48.26291
+27	Gestão de Atendimento ao Público	Reduzir tempo de espera na recepção	Relatório de satisfação positivo	2026-09-30	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	3	2026-04-02 09:27:48.26291
+28	Triagem de Correspondência Externa	Encaminhar ofícios para diretores	Fluxo de documentos rápido	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	4	2026-04-02 09:27:48.26291
+29	Revisão de Regulamento Interno	Corrigir ortografia do manual de conduta	Documento pronto para impressão	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	6	2026-04-02 09:27:48.26291
+30	Planeamento de Arquivo Morto	Separar documentos para descarte/incineração	Espaço otimizado no arquivo	2026-12-31	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	f	\N	\N	6	2026-04-02 09:27:48.26291
+1	Configuração de Firewall Fortigate	Bloquear acessos externos não autorizados	Rede interna segura	2026-03-31	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	t	\N	\N	1	2026-04-02 09:27:48.141992
+2	Expansão da Rede Wi-Fi - Piso 2	Melhorar cobertura do sinal	Sinal estável em todas as salas	2026-03-31	Aguardando	\N	2026-04-02 09:27:48.141992	f	f	1	t	f	t	\N	\N	1	2026-04-02 09:27:48.141992
+11	Migração de Base de Dados Postgres	Mover dados para novo servidor dedicado	Performance de queries 2x superior	2026-03-31	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	t	\N	\N	1	2026-04-02 09:27:48.221375
+12	Desenvolvimento de API de Login	Autenticação centralizada com JWT	Sistema de login seguro	2026-03-31	Aguardando	\N	2026-04-02 09:27:48.221375	f	f	2	t	f	t	\N	\N	1	2026-04-02 09:27:48.221375
+21	Organização de Processos Individuais	Arquivar fichas de novos estudantes	Arquivo físico em ordem alfabética	2026-03-31	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	t	\N	\N	1	2026-04-02 09:27:48.26291
+22	Emissão de Declarações de Notas	Atender pedidos do 1º Trimestre	Documentos entregues aos alunos	2026-03-31	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	t	\N	\N	1	2026-04-02 09:27:48.26291
+20	Documentação de Arquitetura MVC	Escrever manual técnico para estagiários	Wiki técnica actualizada	2026-12-31	Em curso	5	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	6	2026-04-02 09:27:48.221375
+17	Correção de Bugs no Módulo de Pessoal	Resolver erro de cálculo de horas	Folha de pagamento correcta	2026-09-30	Em curso	12	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	3	2026-04-02 09:27:48.221375
 \.
 
 
@@ -402,14 +426,14 @@ SELECT pg_catalog.setval('public.departamentos_id_seq', 7, true);
 -- Name: directores_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kaly
 --
 
-SELECT pg_catalog.setval('public.directores_id_seq', 8, true);
+SELECT pg_catalog.setval('public.directores_id_seq', 9, true);
 
 
 --
 -- Name: funcionarios_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kaly
 --
 
-SELECT pg_catalog.setval('public.funcionarios_id_seq', 10, true);
+SELECT pg_catalog.setval('public.funcionarios_id_seq', 12, true);
 
 
 --
@@ -423,7 +447,7 @@ SELECT pg_catalog.setval('public.periodos_config_id_seq', 12, true);
 -- Name: tarefas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kaly
 --
 
-SELECT pg_catalog.setval('public.tarefas_id_seq', 90, true);
+SELECT pg_catalog.setval('public.tarefas_id_seq', 30, true);
 
 
 --
@@ -581,5 +605,5 @@ ALTER TABLE ONLY public.tarefas
 -- PostgreSQL database dump complete
 --
 
-\unrestrict cIYWi7ipTGoxcb5R3lGhbcGhK15mhUue9z5VKv7uefO2par2ahg0fdw3Av2gOsT
+\unrestrict vcUZCbhK3HKb1ObbcpzXX6ZlDdTcVZ8chZhZV1p3S9RuOAzwwNnFHoEnnGk1ejs
 
