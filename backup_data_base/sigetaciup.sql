@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict vcUZCbhK3HKb1ObbcpzXX6ZlDdTcVZ8chZhZV1p3S9RuOAzwwNnFHoEnnGk1ejs
+\restrict eY5LWIfZTdnZz7cMAQfPCirJXLFIRo0jks8FnEcqpUsA15WX70qotIJnlcPJUhy
 
 -- Dumped from database version 18.3
 -- Dumped by pg_dump version 18.3
@@ -318,7 +318,6 @@ COPY public.departamentos (id, nome_departamento) FROM stdin;
 2	Secretaria
 3	Administrativo
 5	Sistemas
-6	Recursos Humanos
 \.
 
 
@@ -403,6 +402,17 @@ COPY public.tarefas (id, actividade, objectivos, resultado_esperado, prazo_execu
 22	Emissão de Declarações de Notas	Atender pedidos do 1º Trimestre	Documentos entregues aos alunos	2026-03-31	Aguardando	\N	2026-04-02 09:27:48.26291	f	f	3	t	f	t	\N	\N	1	2026-04-02 09:27:48.26291
 20	Documentação de Arquitetura MVC	Escrever manual técnico para estagiários	Wiki técnica actualizada	2026-12-31	Em curso	5	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	6	2026-04-02 09:27:48.221375
 17	Correção de Bugs no Módulo de Pessoal	Resolver erro de cálculo de horas	Folha de pagamento correcta	2026-09-30	Em curso	12	2026-04-02 09:27:48.221375	f	f	2	t	f	f	\N	\N	3	2026-04-02 09:27:48.221375
+31	vugvuhjv	vgjvjhvj	n jhvj	2026-06-30	Aguardando	\N	2026-04-02 10:25:21.897005	f	f	1	f	f	f	\N	\N	2	2026-04-02 10:25:21.897005
+32	Migração de Base de Dados Postgres	Mover dados para novo servidor dedicado	Performance de queries 2x superior	2026-03-31	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	1	2026-04-02 11:14:21.158848
+33	Desenvolvimento de API de Login	Autenticação centralizada com JWT	Sistema de login seguro	2026-03-31	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	1	2026-04-02 11:14:21.158848
+34	Backup Integral de Sexta-Feira	Garantir cópia off-site dos dados	Ficheiro .bak verificado	2026-06-30	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	2	2026-04-02 11:14:21.158848
+35	Optimização de Scripts PHP	Reduzir tempo de carregamento das páginas	Páginas abrem em < 2 segundos	2026-06-30	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	2	2026-04-02 11:14:21.158848
+36	Criação de Dashboard de Estatísticas	Visualizar KPIs em tempo real	Gráficos dinâmicos no Admin	2026-06-30	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	5	2026-04-02 11:14:21.158848
+37	Integração com API do Gemini	Automatizar geração de relatórios mensais	Relatórios em PDF via IA	2026-09-30	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	3	2026-04-02 11:14:21.158848
+38	Correção de Bugs no Módulo de Pessoal	Resolver erro de cálculo de horas	Folha de pagamento correcta	2026-09-30	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	3	2026-04-02 11:14:21.158848
+39	Testes de Carga no Servidor Web	Verificar limite de utilizadores simultâneos	Sistema aguenta 500 users	2026-12-31	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	4	2026-04-02 11:14:21.158848
+40	Implementação de Dark Mode no SIGATCI	Melhorar usabilidade nocturna	Interface com tema escuro	2026-12-31	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	6	2026-04-02 11:14:21.158848
+41	Documentação de Arquitetura MVC	Escrever manual técnico para estagiários	Wiki técnica actualizada	2026-12-31	Aguardando	\N	2026-04-02 11:14:21.158848	f	f	5	t	f	f	\N	\N	6	2026-04-02 11:14:21.158848
 \.
 
 
@@ -447,7 +457,7 @@ SELECT pg_catalog.setval('public.periodos_config_id_seq', 12, true);
 -- Name: tarefas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: kaly
 --
 
-SELECT pg_catalog.setval('public.tarefas_id_seq', 30, true);
+SELECT pg_catalog.setval('public.tarefas_id_seq', 41, true);
 
 
 --
@@ -605,5 +615,5 @@ ALTER TABLE ONLY public.tarefas
 -- PostgreSQL database dump complete
 --
 
-\unrestrict vcUZCbhK3HKb1ObbcpzXX6ZlDdTcVZ8chZhZV1p3S9RuOAzwwNnFHoEnnGk1ejs
+\unrestrict eY5LWIfZTdnZz7cMAQfPCirJXLFIRo0jks8FnEcqpUsA15WX70qotIJnlcPJUhy
 
