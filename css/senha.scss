@@ -1,0 +1,61 @@
+// senha.scss — página de recuperação de senha
+// Requer: base.scss
+
+.pagina-senha {
+    min-height: 100vh;
+    background: $cinza-fundo;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 15px;
+}
+
+.cartao-senha {
+    background: $branco;
+    border-radius: $raio;
+    padding: 44px 40px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: $sombra-m;
+    text-align: center;
+    border: 1px solid $cinza-borda;
+
+    img    { width: 80px; margin-bottom: 20px; }
+    h2     { font-size: 1.4rem; color: $verde; margin-bottom: 8px; }
+    p      { color: $texto-suave; font-size: .9rem; margin-bottom: 24px; }
+
+    input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1.5px solid $cinza-borda;
+        border-radius: $raio-s;
+        font-size: .95rem;
+        font-family: 'DM Sans', sans-serif;
+        margin-bottom: 16px;
+
+        &:focus {
+            border-color: $verde;
+            box-shadow: 0 0 0 3px rgba(0,77,64,.1);
+            outline: none;
+        }
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: $verde;
+        color: $branco;
+        border: none;
+        border-radius: $raio-s;
+        font-family: 'Syne', sans-serif;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background $transicao;
+        margin-bottom: 16px;
+
+        &:hover { background: $verde-escuro; }
+    }
+
+    a       { font-size: .85rem; color: $azul; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+}

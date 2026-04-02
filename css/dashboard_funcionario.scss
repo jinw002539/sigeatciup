@@ -1,0 +1,82 @@
+// dashboard_funcionario.scss — estilos específicos da dashboard do funcionário
+// Requer: base.scss, dashboard_admin.scss (menu-lateral, area-principal, cabecalho-pagina, cartao-stat)
+
+.titulo-secao-func {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $verde;
+    border-left: 4px solid $verde;
+    padding-left: 14px;
+}
+
+// ── Lista de Tarefas ───────────────────────────────────────
+.lista-tarefas-func {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cartao-tarefa {
+    background: $branco;
+    border-radius: $raio;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    box-shadow: $sombra-s;
+    border: 1px solid $cinza-borda;
+    border-left: 5px solid $cinza-borda;
+    transition: transform $transicao, box-shadow $transicao;
+
+    &:hover { transform: translateX(4px); box-shadow: $sombra-m; }
+
+    &:has(.bg-warning) { border-left-color: #ffc107; }
+    &:has(.bg-primary) { border-left-color: $azul; }
+    &:has(.bg-success) { border-left-color: #198754; }
+}
+
+.tarefa-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    strong { font-size: .95rem; color: $texto; }
+    small  { font-size: .8rem;  color: $texto-suave; }
+}
+
+// ── Badges de Prioridade ───────────────────────────────────
+.tarefa-prioridade {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+
+    &.alta  { background: #fde8e8; color: #c62828; }
+    &.media { background: #fff3cd; color: #856404; }
+    &.baixa { background: #e0f0ec; color: $verde;  }
+}
+
+.secao-tarefas { margin-top: 8px; }
+
+// ── Responsividade ─────────────────────────────────────────
+@media (max-width: 768px) {
+    .cartao-tarefa { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
+// ── Novo: Estado vazio, prazos coloridos, bloqueada ───────
+.estado-vazio {
+    text-align: center; padding: 60px 20px; color: $texto-suave;
+    i { font-size: 3rem; display: block; margin-bottom: 14px; opacity: .4; }
+}
+
+.prazo-urgente  { color: #b45309; font-weight: 700; }
+.prazo-expirado { color: #c62828; font-weight: 700; }
+.prazo-normal   { color: $texto-suave; }
+
+.linha-bloqueada { background: #fff5f5 !important; opacity: .8; }
+.linha-bloqueada:hover { background: #ffeaea !important; }

@@ -1,0 +1,48 @@
+/* base.css — variáveis globais, reset, tipografia e animações */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+    --verde:        #004d40;
+    --verde-escuro: #00332c;
+    --verde-claro:  #00695c;
+    --azul:         #0056b3;
+    --branco:       #ffffff;
+    --cinza-fundo:  #f4f6f5;
+    --cinza-borda:  #e0e5e3;
+    --texto:        #1a2420;
+    --texto-suave:  #5a6e69;
+    --sombra-s:     0 2px 12px rgba(0,0,0,.08);
+    --sombra-m:     0 8px 32px rgba(0,0,0,.13);
+    --sombra-l:     0 20px 60px rgba(0,0,0,.18);
+    --raio:         14px;
+    --raio-s:       8px;
+    --transicao:    .3s cubic-bezier(.4,0,.2,1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--texto);
+    background: var(--cinza-fundo);
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+/* Animações de Revelação */
+.revelar {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .65s ease, transform .65s ease;
+}
+.revelar.atraso-1 { transition-delay: .1s; }
+.revelar.atraso-2 { transition-delay: .2s; }
+.revelar.atraso-3 { transition-delay: .3s; }
+.revelar.atraso-4 { transition-delay: .4s; }
+.revelar.visivel  { opacity: 1; transform: none; }
+
+@keyframes entrarModal {
+    from { transform: scale(.92); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+}

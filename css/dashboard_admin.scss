@@ -1,0 +1,160 @@
+// dashboard_admin.scss — menu lateral, área principal, cards de estatísticas
+// Requer: base.scss
+
+.menu-lateral {
+    width: 260px;
+    background: $verde;
+    color: $branco;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+    z-index: 100;
+    box-shadow: 4px 0 20px rgba(0,0,0,.15);
+
+    .logotipo {
+        padding: 28px 20px 24px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,.12);
+
+        img   { width: 52px; margin-bottom: 10px; }
+        h2    { font-size: 1.1rem; font-weight: 800; letter-spacing: 1px; }
+        small { opacity: .6; font-size: .78rem; }
+    }
+}
+
+.navegacao { flex: 1; padding: 16px 0; }
+
+.link-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 24px;
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+    font-size: .88rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: background $transicao, color $transicao, border-color $transicao;
+
+    &:hover, &.ativo {
+        background: rgba(255,255,255,.1);
+        color: $branco;
+        border-left-color: #80cbc4;
+    }
+
+    &.sair {
+        color: #ff8a80;
+        border-top: 1px solid rgba(255,255,255,.1);
+        margin-top: auto;
+
+        &:hover { background: #c62828; color: $branco; border-left-color: transparent; }
+    }
+}
+
+// ── Área Principal ─────────────────────────────────────────
+.area-principal {
+    margin-left: 260px;
+    min-height: 100vh;
+    padding: 36px;
+    background: $cinza-fundo;
+}
+
+.cabecalho-pagina {
+    background: $branco;
+    border-radius: $raio;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    box-shadow: $sombra-s;
+    border: 1px solid $cinza-borda;
+
+    h1 { color: $verde; font-size: 1.5rem; margin-bottom: 4px; }
+    p  { color: $texto-suave; font-size: .9rem; margin: 0; }
+}
+
+// ── Cards de Estatísticas ──────────────────────────────────
+.grelha-estatisticas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.cartao-stat {
+    background: $branco;
+    border-radius: $raio;
+    padding: 22px 18px;
+    text-align: center;
+    box-shadow: $sombra-s;
+    border: 1px solid $cinza-borda;
+    transition: transform $transicao, box-shadow $transicao;
+
+    &:hover { transform: translateY(-4px); box-shadow: $sombra-m; }
+
+    h3     { font-size: .78rem; color: $texto-suave; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .numero { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: $verde; display: block; }
+}
+
+// ── Responsividade ─────────────────────────────────────────
+@media (max-width: 768px) {
+    .menu-lateral { width: 100%; height: auto; position: relative; flex-direction: row; flex-wrap: wrap; }
+    .navegacao    { display: flex; overflow-x: auto; flex: 1; }
+    .link-menu    { padding: 10px 16px; border-left: none; border-bottom: 3px solid transparent; white-space: nowrap; }
+    .link-menu:hover, .link-menu.ativo { border-left: none; border-bottom-color: #80cbc4; }
+    .area-principal { margin-left: 0; padding: 20px; }
+}
+
+// ── Novo: Layout, Sino, Alertas, Gráficos ─────────────────
+.pagina-com-menu { display: flex; min-height: 100vh; position: relative; }
+
+.cabecalho-pagina { display: flex; justify-content: space-between; align-items: center; }
+
+.sino-notificacoes {
+    position: relative;
+    background: $cinza-fundo;
+    border: 1.5px solid $cinza-borda;
+    border-radius: 50%;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1.1rem; color: $texto-suave; flex-shrink: 0;
+    transition: background $transicao, color $transicao, border-color $transicao;
+
+    &:hover { background: $verde; color: $branco; border-color: $verde; }
+    &.com-alerta { background: #fff3cd; border-color: #ffc107; color: #856404; animation: pulsarSino 2s infinite; }
+    &.com-alerta:hover { background: #ffc107; color: $branco; }
+}
+
+.contador-sino {
+    position: absolute; top: -5px; right: -5px;
+    background: #c62828; color: $branco;
+    font-size: .65rem; font-weight: 700;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+@keyframes pulsarSino {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.08); }
+}
+
+.alerta-pendentes {
+    background: #fff8e1; border: 1.5px solid #ffc107;
+    border-left: 5px solid #ffc107; border-radius: $raio-s;
+    padding: 12px 18px; margin-bottom: 22px;
+    font-size: .9rem; color: #5d4037;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.link-alerta { color: $verde; font-weight: 700; text-decoration: none; margin-left: auto; &:hover { text-decoration: underline; } }
+
+.texto-alerta { color: #b45309 !important; }
+.texto-perigo  { color: #c62828 !important; }
+
+.cartao-grafico {
+    background: $branco; border-radius: $raio;
+    padding: 24px; box-shadow: $sombra-s; border: 1px solid $cinza-borda; height: 100%;
+}
+.titulo-grafico {
+    font-size: 1rem; font-weight: 700; color: $verde;
+    margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1.5px solid $cinza-borda;
+}

@@ -1,0 +1,8 @@
+ver php
+login
+cadastro
+listar
+actualizar
+sessoes
+niveis de acesso
+mandam codigo no contacto

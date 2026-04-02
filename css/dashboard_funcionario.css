@@ -1,0 +1,84 @@
+/* dashboard_funcionario.css — estilos específicos da dashboard do funcionário */
+
+.titulo-secao-func {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--verde);
+    border-left: 4px solid var(--verde);
+    padding-left: 14px;
+}
+
+/* Lista de Tarefas */
+.lista-tarefas-func {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.cartao-tarefa {
+    background: var(--branco);
+    border-radius: var(--raio);
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    box-shadow: var(--sombra-s);
+    border: 1px solid var(--cinza-borda);
+    border-left: 5px solid var(--cinza-borda);
+    transition: transform var(--transicao), box-shadow var(--transicao);
+}
+.cartao-tarefa:hover { transform: translateX(4px); box-shadow: var(--sombra-m); }
+
+.tarefa-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.tarefa-info strong { font-size: .95rem; color: var(--texto); }
+.tarefa-info small  { font-size: .8rem; color: var(--texto-suave); }
+
+/* Badges de Prioridade */
+.tarefa-prioridade {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+}
+.tarefa-prioridade.alta  { background: #fde8e8; color: #c62828; }
+.tarefa-prioridade.media { background: #fff3cd; color: #856404; }
+.tarefa-prioridade.baixa { background: #e0f0ec; color: var(--verde); }
+
+/* Cor da borda esquerda por estado */
+.cartao-tarefa:has(.bg-warning)  { border-left-color: #ffc107; }
+.cartao-tarefa:has(.bg-primary)  { border-left-color: var(--azul); }
+.cartao-tarefa:has(.bg-success)  { border-left-color: #198754; }
+
+.secao-tarefas { margin-top: 8px; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cartao-tarefa { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
+/* ── Estado vazio ────────────────────────────────────────── */
+.estado-vazio {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--texto-suave);
+}
+.estado-vazio i  { font-size: 3rem; display: block; margin-bottom: 14px; opacity: .4; }
+.estado-vazio p  { font-size: 1rem; }
+
+/* ── Prazo colorido ──────────────────────────────────────── */
+.prazo-urgente  { color: #b45309; font-weight: 700; }
+.prazo-expirado { color: #c62828; font-weight: 700; }
+.prazo-normal   { color: var(--texto-suave); }
+
+/* ── Linha bloqueada ─────────────────────────────────────── */
+.linha-bloqueada { background: #fff5f5 !important; opacity: .8; }
+.linha-bloqueada:hover { background: #ffeaea !important; }

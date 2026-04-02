@@ -1,0 +1,167 @@
+// director.scss — Requer: base.scss
+
+.cartao-director {
+    background: $branco; border-radius: $raio;
+    padding: 28px; box-shadow: $sombra-s;
+    border: 1px solid $cinza-borda; height: 100%;
+}
+
+.cabecalho-cartao-director {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 24px; padding-bottom: 18px;
+    border-bottom: 1.5px solid $cinza-borda;
+
+    & > i {
+        font-size: 1.8rem; color: $verde;
+        background: rgba(0,77,64,.08);
+        width: 48px; height: 48px; border-radius: $raio-s;
+        display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    h3    { font-size: 1.05rem; color: $verde; margin: 0 0 2px; }
+    small { color: $texto-suave; font-size: .8rem; }
+}
+
+.grupo-campo-dir {
+    margin-bottom: 14px;
+
+    label {
+        display: block; font-size: .75rem; font-weight: 600;
+        color: $texto-suave; text-transform: uppercase;
+        letter-spacing: .5px; margin-bottom: 6px;
+    }
+}
+
+.campo-dir {
+    width: 100%; padding: 10px 13px;
+    border: 1.5px solid $cinza-borda; border-radius: $raio-s;
+    font-size: .92rem; font-family: 'DM Sans', sans-serif;
+    background: #fafbfa; color: $texto;
+    transition: border-color $transicao, box-shadow $transicao;
+
+    &:focus { border-color: $verde; box-shadow: 0 0 0 3px rgba(0,77,64,.1); outline: none; background: $branco; }
+}
+
+.opcoes-nivel { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.opcao-nivel {
+    cursor: pointer; margin: 0;
+    input[type="radio"] { display: none; }
+
+    span {
+        display: flex; flex-direction: column; align-items: center;
+        gap: 6px; padding: 12px 8px;
+        border: 1.5px solid $cinza-borda; border-radius: $raio-s;
+        font-size: .8rem; font-weight: 600; color: $texto-suave;
+        text-align: center; background: $cinza-fundo;
+        transition: all $transicao;
+        i { font-size: 1.3rem; }
+    }
+
+    input:checked + span {
+        border-color: $verde; background: rgba(0,77,64,.07);
+        color: $verde; box-shadow: 0 0 0 2px rgba(0,77,64,.15);
+    }
+}
+
+.botao-registar {
+    width: 100%; padding: 12px;
+    background: $verde; color: $branco; border: none;
+    border-radius: $raio-s; font-family: 'Syne', sans-serif;
+    font-weight: 700; font-size: .95rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 18px; box-shadow: 0 4px 14px rgba(0,77,64,.25);
+    transition: background $transicao, transform $transicao;
+
+    &:hover { background: $verde-escuro; transform: translateY(-2px); }
+}
+
+.tabela-cabecalho-dir th {
+    background: $verde; color: $branco;
+    font-family: 'Syne', sans-serif; font-size: .75rem;
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 12px 16px; border: none;
+}
+
+.badge-nivel-geral { background: #e3f2fd; color: #1565c0; font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
+.badge-nivel-dept  { background: #f1f8e9; color: #33691e; font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; }
+
+.sobreposicao-dir {
+    position: fixed; inset: 0;
+    background: rgba(10,20,18,.65); backdrop-filter: blur(5px);
+    z-index: 9999; align-items: center; justify-content: center; padding: 20px;
+}
+
+.caixa-modal-dir {
+    background: $branco; border-radius: 18px; padding: 30px;
+    width: 100%; max-width: 460px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.22);
+    animation: entrarModal .3s cubic-bezier(.34,1.56,.64,1);
+    max-height: 90vh; overflow-y: auto;
+}
+
+.cabecalho-modal-dir {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1.5px solid $cinza-borda;
+    h3 { color: $verde; font-size: 1.05rem; margin: 0; }
+}
+
+.fechar-dir-btn {
+    background: $cinza-fundo; border: none; border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: $texto-suave; font-size: .85rem;
+    transition: background $transicao, color $transicao;
+    &:hover { background: #fde8e8; color: #c62828; }
+}
+
+.resumo-dir { background: $cinza-fundo; border-left: 4px solid $verde; border-radius: $raio-s; padding: 14px; }
+
+.linha-resumo-dir {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 0; border-bottom: 1px solid $cinza-borda; font-size: .87rem;
+    &:last-of-type { border-bottom: none; }
+    span   { color: $texto-suave; font-size: .8rem; }
+    strong { color: $texto; }
+}
+
+.acoes-modal-dir { display: flex; gap: 10px; margin-top: 18px; padding-top: 16px; border-top: 1.5px solid $cinza-borda; }
+
+.btn-confirmar-dir {
+    flex: 1; padding: 11px; background: $verde; color: $branco;
+    border: none; border-radius: $raio-s;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: .93rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background $transicao, transform $transicao;
+    &:hover { background: $verde-escuro; transform: translateY(-1px); }
+}
+
+.btn-cancelar-dir {
+    padding: 11px 18px; background: $cinza-fundo; color: $texto-suave;
+    border: 1.5px solid $cinza-borda; border-radius: $raio-s;
+    font-family: 'Syne', sans-serif; font-weight: 600; font-size: .93rem;
+    cursor: pointer; display: flex; align-items: center;
+    transition: background $transicao, color $transicao;
+    &:hover { background: #fde8e8; color: #c62828; border-color: #f5c6c6; }
+}
+
+.caixa-sucesso-dir { text-align: center; max-width: 400px !important; }
+
+.icone-sucesso-dir { font-size: 3.5rem; color: #2e7d32; margin-bottom: 12px; animation: surgirIcone .5s cubic-bezier(.34,1.56,.64,1); }
+@keyframes surgirIcone { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.titulo-sucesso-dir { color: $verde; font-size: 1.3rem; margin-bottom: 4px; }
+.sub-sucesso-dir    { color: $texto-suave; font-size: .88rem; margin-bottom: 18px; }
+
+.credenciais-dir {
+    background: $cinza-fundo; border-radius: $raio-s;
+    padding: 14px 16px; margin-bottom: 10px;
+    text-align: left; border: 1.5px solid $cinza-borda;
+}
+
+.linha-cred-dir {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid $cinza-borda; font-size: .87rem;
+    &:last-child { border-bottom: none; }
+    span   { color: $texto-suave; font-size: .82rem; }
+    strong { font-family: 'Courier New', monospace; color: $verde; background: rgba(0,77,64,.08); padding: 2px 9px; border-radius: 5px; }
+}

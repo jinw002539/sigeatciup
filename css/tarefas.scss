@@ -1,0 +1,190 @@
+// tarefas.scss
+// Requer: base.scss
+
+.pagina-com-menu { display: flex; min-height: 100vh; position: relative; }
+
+// ── Barra de acções ────────────────────────────────────────
+.barra-acoes {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.filtro-select {
+    max-width: 220px;
+    border: 1.5px solid $cinza-borda;
+    border-radius: $raio-s;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .9rem;
+    padding: 9px 36px 9px 14px;
+    background: $branco;
+    color: $texto;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16'%3E%3Cpath fill='%235a6e69' d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+    transition: border-color $transicao, box-shadow $transicao;
+
+    &:focus { border-color: $verde; box-shadow: 0 0 0 3px rgba(0,77,64,.1); outline: none; }
+}
+
+.btn-nova-tarefa {
+    background: $verde;
+    color: $branco;
+    border: none;
+    border-radius: $raio-s;
+    padding: 10px 22px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 14px rgba(0,77,64,.25);
+    transition: background $transicao, transform $transicao, box-shadow $transicao;
+
+    &:hover { background: $verde-escuro; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,77,64,.35); }
+}
+
+// ── Modal ──────────────────────────────────────────────────
+.sobreposicao-tarefa {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,20,18,.65);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    &.aberto { display: flex; }
+}
+
+.caixa-tarefa {
+    background: $branco;
+    border-radius: 18px;
+    padding: 32px 36px 28px;
+    width: 100%;
+    max-width: 620px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.22);
+    animation: entrarModal .3s cubic-bezier(.34,1.56,.64,1);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.cabecalho-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1.5px solid $cinza-borda;
+
+    h3 { color: $verde; font-size: 1.2rem; margin: 0; }
+}
+
+.fechar-modal-btn {
+    background: $cinza-fundo;
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: $texto-suave;
+    font-size: .9rem;
+    flex-shrink: 0;
+    transition: background $transicao, color $transicao;
+
+    &:hover { background: #fde8e8; color: #c62828; }
+}
+
+// ── Campos ─────────────────────────────────────────────────
+.grupo-campo {
+    margin-bottom: 16px;
+
+    label {
+        display: block;
+        font-size: .8rem;
+        font-weight: 600;
+        color: $texto-suave;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+        margin-bottom: 7px;
+    }
+}
+
+.campo-entrada {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid $cinza-borda;
+    border-radius: $raio-s;
+    font-size: .93rem;
+    font-family: 'DM Sans', sans-serif;
+    background: #fafbfa;
+    color: $texto;
+    transition: border-color $transicao, box-shadow $transicao;
+
+    &:focus { border-color: $verde; box-shadow: 0 0 0 3px rgba(0,77,64,.1); outline: none; background: $branco; }
+    &[rows]  { resize: vertical; min-height: 80px; }
+}
+
+// ── Botões ─────────────────────────────────────────────────
+.acoes-modal-tarefa {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1.5px solid $cinza-borda;
+}
+
+.botao-guardar {
+    flex: 1;
+    padding: 11px;
+    background: $verde;
+    color: $branco;
+    border: none;
+    border-radius: $raio-s;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: .95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background $transicao, transform $transicao;
+
+    &:hover { background: $verde-escuro; transform: translateY(-1px); }
+}
+
+.botao-cancelar {
+    padding: 11px 22px;
+    background: $cinza-fundo;
+    color: $texto-suave;
+    border: 1.5px solid $cinza-borda;
+    border-radius: $raio-s;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: .95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background $transicao, color $transicao;
+
+    &:hover { background: #fde8e8; color: #c62828; border-color: #f5c6c6; }
+}
+
+// ── Responsividade ─────────────────────────────────────────
+@media (max-width: 768px) {
+    .barra-acoes        { flex-direction: column; align-items: stretch; }
+    .filtro-select      { max-width: 100%; }
+    .caixa-tarefa       { padding: 24px 20px; }
+    .acoes-modal-tarefa { flex-direction: column; }
+    .botao-cancelar     { justify-content: center; }
+}
