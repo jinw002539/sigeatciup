@@ -189,11 +189,14 @@
         $p   = [];
 
         if ($ehAdmin) {
-            // Admin vê tudo o que ainda não foi autorizado
-            $sql = "SELECT COUNT(*) as total FROM tarefas WHERE autorizada_por_direcao = 'f'";
+            // ADMIN: O sino toca para tarefas criadas que precisam de aprovação
+            $sql = "SELECT COUNT(*) FROM tarefas WHERE autorizada_por_direcao = 'f'";
         } else {
-            // Diretor vê o que é do seu departamento e não tem técnico
-            $sql = "SELECT COUNT(*) as total FROM tarefas WHERE id_departamento = ? AND id_funcionario IS NULL";
+            // DIRETOR: O sino toca para tarefas do seu depto que o Admin JÁ AUTORIZOU, 
+            // mas que ainda não foram atribuídas a nenhum técnico.
+            $sql = "SELECT COUNT(*) FROM tarefas WHERE id_departamento = ? 
+                    AND autorizada_por_direcao = 't' 
+                    AND id_funcionario IS NULL";
             $p = [$_SESSION['dirDeptId'] ?? 0];
         }
 
@@ -232,6 +235,26 @@
         }
         exit();
     }
+
+    if ($metodo === 'POST' && isset($_GET['autorizar']) && $ehAdmin) {
+        $id_tarefa = $_POST['id'] ?? null;
+
+        if (!$id_tarefa) {
+            echo json_encode(['sucesso' => false, 'erro' => 'ID da tarefa não enviado.']);
+            exit();
+        }
+
+        try {
+            $stmt = $pdo->prepare("UPDATE tarefas SET autorizada_por_direcao = 't', estado = 'Aguardando' WHERE id = ?");
+            $sucesso = $stmt->execute([$id_tarefa]);
+            echo json_encode(['sucesso' => $sucesso]);
+        } catch (PDOException $e) {
+            echo json_encode(['sucesso' => false, 'erro' => $e->getMessage()]);
+        }
+        exit();
+    }
+
+    
 
     // Se chegar aqui sem acção válida
     echo json_encode(['sucesso' => false, 'erro' => 'Acção não reconhecida.']);
